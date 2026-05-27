@@ -16,6 +16,14 @@
   <!-- Ton CSS personnalisé (optionnel) -->
   <link rel="stylesheet" href="/src/style.css">
   <!-- Police Poppins override -->
+
+  <link rel="stylesheet" href="/node_modules/reveal.js/dist/plugin/highlight/monokai.css" />
+<script src="/node_modules/reveal.js/dist/plugin/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    plugins: [RevealHighlight],
+  });
+</script>
   <style>
     body, .reveal {
       font-family: 'Poppins', sans-serif !important;
@@ -245,19 +253,58 @@
       
       </svg>
     </section>
-   
-      <!-- <section data-markdown="/src/assets/md/librairie-declaratives.md">
-      </section> -->
+
+      <section>
+      
+        <pre><code data-line-numbers data-ln-start-from="7">
+      function Salutation({ nom }) {
+        return (
+          <div className="salutation">
+            <h2>Bonjour {nom} ! 👋</h2>
+            <p>Bienvenue dans React</p>
+          </div>
+        );
+      }
+      </code></pre>
+      
+      </section>
+   <section>
+   <section data-markdown="/src/assets/md/INTRODUCTION_JSX.md">
+      </section>    
+  
+  
+  </section>
+
+     
 
       <section data-markdown="/src/assets/md/react-intro-slides.md">
       </section>
-      <section>
+      <!-- <section>
         <section>Vertical Slide 1</section>
         <section>Vertical Slide 2</section>
+      </section> -->
+
+      <section>
+        <h2>Exemple du compteur</h2>
+        <pre><code class="language-jsx" data-trim data-line-numbers>
+function Compteur() {
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;div className="counter-demo"&gt;
+      &lt;div className="counter-display"&gt;{count}&lt;/div&gt;
+      &lt;div className="counter-buttons"&gt;
+        &lt;button onClick={() =&gt; setCount(count - 1)}&gt;−&lt;/button&gt;
+        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;+&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+        </code></pre>
       </section>
 
       <section class="counter-demo">
-        <h1>Exemple du compteur</h1>
+        <h1>En action</h1>
         <div class="counter-display" id="count">0</div>
         <div class="counter-buttons">
           <button id="decrement">−</button>
@@ -283,23 +330,33 @@
         </script>
       </section>
 
-      <section data-markdown>
-        <textarea data-template>
-          ## Slide 1
-          A paragraph with some text and a [link](https://hakim.se).
-          ---
-          ## Slide 2
-          ---
-          ## Slide 3
-        </textarea>
-      </section>
-       <section data-auto-animate>
+      <section>
+        
+                <h1>Bienvenue au spa</h1>
+
+        <iframe src="/src/assets/html/demo-1-donnees.html"   width="100%" height="500" frameborder="0"></iframe></section>
+<section><iframe src="/src/assets/html/demo-2-composant.html" width="100%" height="500" frameborder="0"></iframe></section>
+<section><iframe src="/src/assets/html/demo-3-resultat.html"  width="100%" height="600" frameborder="0"></iframe></section>
+
+      <!-- <section>
+  <h2>Démo live</h2>
+  <iframe
+    src="/src/assets/html/, demo-dashboard.html"
+    width="100%"
+    height="500"
+    frameborder="0">
+  </iframe>
+</section> -->
+
+
+
+       <!-- <section data-auto-animate>
       <h1>Implicit</h1>
     </section>
     <section data-auto-animate>
       <h1>Implicit</h1>
       <h1>Animation</h1>
-    </section>
+    </section> -->
 
     </div>
   </div>

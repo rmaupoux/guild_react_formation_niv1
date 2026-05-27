@@ -51,12 +51,10 @@ function CarteMetrique({ titre, valeur }) {
 }
 ```
 
-```
-┌─────────────────┐
-│  Ventes totales │
-│    42 500 €     │
-└─────────────────┘
-```
+<div style="display: inline-block; background: linear-gradient(135deg, #4f8ef7 0%, #2e5ab8 100%); color: white; padding: 1.5rem 2.5rem; border-radius: 50px; box-shadow: 0 8px 16px rgba(79, 142, 247, 0.3); text-align: center; min-width: 200px;">
+  <div style="font-size: 0.6em; opacity: 0.9; margin-bottom: 0.5rem;">Ventes totales</div>
+  <div style="font-size: 1.6em; font-weight: bold; letter-spacing: 0.5px;">42 500 €</div>
+</div>
 
 > Pensez-y comme une **fonction Python qui retourne du HTML**
 
@@ -78,12 +76,19 @@ function Badge({ label, couleur }) {
 <Badge label="En cours" couleur="blue" />
 ```
 
-```
-[Urgent]  [Normal]  [En cours]
-   🔴        🟢         🔵
-```
+<div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+  <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: linear-gradient(135deg, #ef5350 0%, #c62828 100%); color: white; padding: 0.4rem 1rem; border-radius: 50px; box-shadow: 0 4px 12px rgba(239, 83, 80, 0.3); font-weight: 500; font-size: 0.85em;">
+    🔴 Urgent
+  </div>
+  <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: linear-gradient(135deg, #66bb6a 0%, #2e7d32 100%); color: white; padding: 0.4rem 1rem; border-radius: 50px; box-shadow: 0 4px 12px rgba(102, 187, 106, 0.3); font-weight: 500; font-size: 0.85em;">
+    🟢 Normal
+  </div>
+  <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: linear-gradient(135deg, #4f8ef7 0%, #2e5ab8 100%); color: white; padding: 0.4rem 1rem; border-radius: 50px; box-shadow: 0 4px 12px rgba(79, 142, 247, 0.3); font-weight: 500; font-size: 0.85em;">
+    🔵 En cours
+  </div>
+</div>
 
-> Props entrent → composant transforme → interface sort
+<!-- > Props entrent → composant transforme → interface sort -->
 
 ---
 
@@ -106,11 +111,11 @@ function Compteur() {
 }
 ```
 
-```
-État change → React re-affiche automatiquement
-```
 
-> Comme une **cellule de variable** qui déclenche un recalcul
+> État change → **React re-affiche automatiquement**
+
+
+<!-- > Comme une **cellule de variable** qui déclenche un recalcul -->
 
 ---
 
@@ -155,7 +160,7 @@ function Alerte({ message }) {
 ```
 
 ---
-
+<!-- 
 ## Démo Live — Mini Dashboard
 
 Ce qu'on va construire :
@@ -215,9 +220,9 @@ function Dashboard() {
     </div>
   );
 }
-```
+``` -->
 
----
+
 
 ## L'écosystème à connaître
 
@@ -239,7 +244,7 @@ npm run dev
 
 ---
 
-## React vs Streamlit
+<!-- ## React vs Streamlit
 
 ```
 ╔═══════════════╦═════════════════╦═════════════════╗
@@ -255,7 +260,7 @@ npm run dev
 
 > **Règle simple :** Streamlit pour explorer, React pour livrer
 
----
+--- -->
 
 ## Ce qu'on a vu aujourd'hui
 
@@ -270,25 +275,15 @@ React
 **Votre prochaine étape :**
 Prendre un de vos datasets et le rendre filtrable avec React
 
----
 
-## Ressources
+
+<!-- ## Ressources
 
 - 📖 **react.dev** — La doc officielle (excellente)
 - 📊 **recharts.org** — Graphes React prêts à l'emploi
 - ⚡ **vitejs.dev** — Démarrer un projet React rapidement
 - 🧪 **codesandbox.io** — Tester React sans rien installer
 
----
+--- -->
 
-## Questions ?
 
-```
-Vous savez déjà :
-  ✅ Manipuler des données
-  ✅ Penser en fonctions
-  ✅ Transformer des inputs en outputs
-
-React, c'est la même logique
-       appliquée à l'interface.
-```
