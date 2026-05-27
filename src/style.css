@@ -1,0 +1,81 @@
+.header-logo{
+    position: fixed;
+    z-index: 1000;
+    top: 0px;
+    left: 0px;
+    width: 40px !important;
+    height: 40px !important;
+    margin: 0px;
+}
+
+.two-columns {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    font-size: 0.5em;
+}
+
+.two-columns > div {
+    flex: 1;
+    text-align: left;
+}
+
+.two-columns h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+blockquote {
+    color: #4f8ef7;
+    border-left: 4px solid #4f8ef7;
+    padding-left: 2rem !important;
+}
+
+h4 {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+h4 img {
+    width: 40px;
+    height: 40px;
+}
+
+.counter-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    justify-content: center;
+    min-height: 100%;
+}
+
+.counter-display {
+    font-size: 8rem;
+    font-weight: bold;
+    color: #4f8ef7;
+    min-width: 200px;
+    text-align: center;
+}
+
+.counter-buttons {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.counter-buttons button {
+    font-size: 3rem;
+    padding: 1.5rem 3rem;
+    background-color: #4f8ef7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.counter-buttons button:hover {
+    background-color: #2e5ab8;
+}
