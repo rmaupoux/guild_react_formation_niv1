@@ -1,0 +1,45 @@
+<svg width="100%" viewBox="0 0 680 520" role="img" style="background: rgb(255, 255, 255);" xmlns="http://www.w3.org/2000/svg">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Cycle du DOM Virtuel dans React</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Schéma circulaire montrant le cycle App → DOM Virtuel → DOM → App</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Arcs de connexion -->
+  <!-- App → DOM Virtuel (décalée à gauche) -->
+  <path d="M 220 148 Q 230 70 295 88" fill="none" stroke="#555" stroke-width="1.5" opacity="0.6" marker-end="url(#arrow)" style="fill:none;stroke:rgb(85, 85, 85);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.6;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- DOM Virtuel → DOM -->
+  <path d="M 380 130 Q 430 140 440 190" fill="none" stroke="#555" stroke-width="1.5" opacity="0.6" marker-end="url(#arrow)" style="fill:none;stroke:rgb(85, 85, 85);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.6;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- DOM → App -->
+  <path d="M 420 330 Q 340 430 250 330" fill="none" stroke="#555" stroke-width="1.5" opacity="0.6" marker-end="url(#arrow)" style="fill:none;stroke:rgb(85, 85, 85);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.6;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Nœud App (bleu clair) -->
+  <circle cx="190" cy="240" r="72" fill="#DAEAF8" stroke="#378ADD" stroke-width="1.5" style="fill:rgb(218, 234, 248);stroke:rgb(55, 138, 221);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="190" y="248" text-anchor="middle" font-size="16" font-weight="500" fill="#0C447C" font-family="sans-serif" style="fill:rgb(12, 68, 124);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:16px;font-weight:500;text-anchor:middle;dominant-baseline:auto">App</text>
+
+  <!-- Nœud DOM Virtuel (bleu moyen, sans bordure) -->
+  <circle cx="340" cy="100" r="72" fill="#85B7EB" stroke="none" style="fill:rgb(133, 183, 235);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="340" y="94" text-anchor="middle" font-size="15" font-weight="500" fill="#042C53" font-family="sans-serif" style="fill:rgb(4, 44, 83);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:15px;font-weight:500;text-anchor:middle;dominant-baseline:auto">DOM</text>
+  <text x="340" y="114" text-anchor="middle" font-size="15" font-weight="500" fill="#042C53" font-family="sans-serif" style="fill:rgb(4, 44, 83);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:15px;font-weight:500;text-anchor:middle;dominant-baseline:auto">Virtuel</text>
+
+  <!-- Nœud DOM (bleu foncé) -->
+  <circle cx="480" cy="260" r="72" fill="#185FA5" stroke="#0C447C" stroke-width="1.5" style="fill:rgb(24, 95, 165);stroke:rgb(12, 68, 124);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="480" y="268" text-anchor="middle" font-size="18" font-weight="500" fill="#E6F1FB" font-family="sans-serif" style="fill:rgb(230, 241, 251);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:18px;font-weight:500;text-anchor:middle;dominant-baseline:auto">DOM</text>
+
+  <!-- Étiquette flèche 1 : App → DOM Virtuel (gauche) -->
+  <text x="30" y="62" text-anchor="start" font-size="12" fill="#555" font-family="sans-serif" style="fill:rgb(85, 85, 85);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Construit/reconstruit</text>
+  <text x="30" y="78" text-anchor="start" font-size="12" fill="#555" font-family="sans-serif" style="fill:rgb(85, 85, 85);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">l'arbre des composants</text>
+  <text x="30" y="94" text-anchor="start" font-size="12" fill="#555" font-family="sans-serif" style="fill:rgb(85, 85, 85);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">ayant détecté</text>
+  <text x="30" y="110" text-anchor="start" font-size="12" fill="#555" font-family="sans-serif" style="fill:rgb(85, 85, 85);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">un changement d'état</text>
+
+  <!-- Étiquette flèche 2 : DOM Virtuel → DOM (haut droite) -->
+  <text x="450" y="30" text-anchor="start" font-size="12" fill="#555" font-family="sans-serif" style="fill:rgb(85, 85, 85);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">Exécute l'algorithme de diff</text>
+  <text x="450" y="46" text-anchor="start" font-size="12" fill="#555" font-family="sans-serif" style="fill:rgb(85, 85, 85);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">pour comparer l'ancien</text>
+  <text x="450" y="62" text-anchor="start" font-size="12" fill="#555" font-family="sans-serif" style="fill:rgb(85, 85, 85);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">et le nouvel arbre,</text>
+  <text x="450" y="78" text-anchor="start" font-size="12" fill="#555" font-family="sans-serif" style="fill:rgb(85, 85, 85);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto">puis réconciliation</text>
+
+  <!-- Étiquette flèche 3 : DOM → App -->
+  <text x="340" y="430" text-anchor="middle" font-size="12" fill="#555" font-family="sans-serif" style="fill:rgb(85, 85, 85);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:auto">Événements déclenchés</text>
+</svg>

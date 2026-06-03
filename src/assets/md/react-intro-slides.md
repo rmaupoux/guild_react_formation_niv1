@@ -15,7 +15,10 @@ CSV / DataFrame
   Graphe statique  ← on veut mieux que ça
 ```
 
-**Et si l'utilisateur pouvait filtrer, explorer, interagir ?**
+
+
+
+> Et si l'utilisateur pouvait **filtrer, explorer, interagir ?**
 
 ---
 
@@ -133,95 +136,8 @@ function Compteur() {
 ╚══════════════════════╩══════════════════════╝
 ```
 
----
-
-## Le JSX : HTML dans JavaScript
-
-Au début ça surprend, puis ça devient naturel
-
-```jsx
-// JSX — ce que vous écrivez
-function Alerte({ message }) {
-  return (
-    <div className="alerte">
-      <span>⚠️</span>
-      <p>{message}</p>
-    </div>
-  );
-}
-```
-
-```html
-<!-- Ce que le navigateur reçoit -->
-<div class="alerte">
-  <span>⚠️</span>
-  <p>Données manquantes détectées</p>
-</div>
-```
 
 ---
-<!-- 
-## Démo Live — Mini Dashboard
-
-Ce qu'on va construire :
-
-```
-┌─────────────────────────────────────────┐
-│  🔍 Filtrer par région : [__________]   │
-├─────────────────────────────────────────┤
-│  Région    │  Ventes  │  Croissance     │
-│ ───────────┼──────────┼─────────────── │
-│  Nord      │  12 400  │  +8%           │
-│  Sud       │  9 800   │  +3%           │
-│  Est       │  15 200  │  +12%          │
-└─────────────────────────────────────────┘
-```
-
-**Input utilisateur → State → Re-render du tableau**
-
----
-
-## Démo — Le code complet
-
-```jsx
-const donnees = [
-  { region: "Nord", ventes: 12400, croissance: "+8%" },
-  { region: "Sud",  ventes: 9800,  croissance: "+3%" },
-  { region: "Est",  ventes: 15200, croissance: "+12%" },
-];
-
-function Dashboard() {
-  const [filtre, setFiltre] = useState("");
-
-  const lignesFiltrees = donnees.filter(d =>
-    d.region.toLowerCase().includes(filtre.toLowerCase())
-  );
-
-  return (
-    <div>
-      <input
-        placeholder="Filtrer par région…"
-        onChange={e => setFiltre(e.target.value)}
-      />
-      <table>
-        <thead>
-          <tr><th>Région</th><th>Ventes</th><th>Croissance</th></tr>
-        </thead>
-        <tbody>
-          {lignesFiltrees.map(d => (
-            <tr key={d.region}>
-              <td>{d.region}</td>
-              <td>{d.ventes}</td>
-              <td>{d.croissance}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-``` -->
-
 
 
 ## L'écosystème à connaître
