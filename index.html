@@ -142,13 +142,13 @@
           ];
           new Chart(document.getElementById('fwChart'), {
             type: 'line',
-            data: { labels, datasets },
+            data: {labels, datasets},
             options: {
               responsive: true,
               maintainAspectRatio: false,
-              interaction: { mode: 'index', intersect: false },
+              interaction: {mode: 'index', intersect: false},
               plugins: {
-                legend: { display: false },
+                legend: {display: false},
                 tooltip: {
                   callbacks: {
                     label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}%`
@@ -157,14 +157,14 @@
               },
               scales: {
                 x: {
-                  grid: { color: 'rgba(128,128,128,0.1)' },
-                  ticks: { font: { size: 12 }, color: '#888', autoSkip: false }
+                  grid: {color: 'rgba(128,128,128,0.1)'},
+                  ticks: {font: {size: 12}, color: '#888', autoSkip: false}
                 },
                 y: {
                   min: 0, max: 100,
-                  grid: { color: 'rgba(128,128,128,0.1)' },
+                  grid: {color: 'rgba(128,128,128,0.1)'},
                   ticks: {
-                    font: { size: 12 }, color: '#888',
+                    font: {size: 12}, color: '#888',
                     callback: v => v + '%', stepSize: 20
                   }
                 }
@@ -268,6 +268,27 @@
           </g>
 
         </svg>
+      </section>
+   
+      <section data-markdown>
+        <textarea data-template>
+   ### CYCLE DE VIE D'UN COMPOSANT
+
+#### PHASE 1: MOUNTING
+- lecture 1 : `render()`
+- lecture 2 : `componentDidMount()` / `useEffect()`
+
+
+
+#### PHASE 2: UPDATING
+- lecture 1 : `render()` (re-render)
+- lecture 2 : `componentDidUpdate()` / `useEffect()`
+
+
+#### PHASE 3: UNMOUNTING
+- lecture 1 : ✖
+- lecture 2 : `componentWillUnmount()` / `useEffect()`
+  </textarea>
       </section>
       <!-- <section> -->
       <!-- <h2>Avec seulement JavaScript: le DOM direct</h2> -->
