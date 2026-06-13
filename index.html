@@ -39,6 +39,10 @@
     h6 {
       font-family: 'Roboto Slab', serif !important;
     }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
   <!-- Chart.js pour le graphique -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -58,7 +62,7 @@
         <h1 style="color: white;">Bienvenue au spa</h1>
         <p style="color: white;">Single Page Application avec React</p>
       </section>
-
+<!-- GRAPH -->
       <section>
         <h5 class="sr-only">Graphique de l'utilisation des frameworks frontend JavaScript de 2016 à 2024, selon le State
           of JS.
@@ -174,6 +178,13 @@
         </script>
       </section>
 
+      <section data-background-image="/src/assets/images/react_compo_JS.svg" data-background-size="800px" data-transition="slide-in fade-out">
+      </section>
+      <section data-background-image="/src/assets/images/react_compo_vdom.svg" data-background-size="800px"data-transition="slide-in fade-out">
+      </section>
+      <section data-transition="slide-in fade-out" data-background-image="/src/assets/images/react_compo_PascalCase.svg" data-background-size="400px">
+      </section>
+
       <section class="svg-animation-section">
         <?xml version="1.0" standalone="no"?>
         <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -270,25 +281,32 @@
         </svg>
       </section>
    
-      <section data-markdown>
-        <textarea data-template>
-   ### CYCLE DE VIE D'UN COMPOSANT
-
-#### PHASE 1: MOUNTING
-- lecture 1 : `render()`
-- lecture 2 : `componentDidMount()` / `useEffect()`
-
-
-
-#### PHASE 2: UPDATING
-- lecture 1 : `render()` (re-render)
-- lecture 2 : `componentDidUpdate()` / `useEffect()`
-
-
-#### PHASE 3: UNMOUNTING
-- lecture 1 : ✖
-- lecture 2 : `componentWillUnmount()` / `useEffect()`
-  </textarea>
+      <section style="font-size: 0.5em; width: 80%; text-align: left; margin: 0 auto;">
+        <h1 class="fragment">UseEffect : Le cycle de vie d'un composant React</h1>
+        <div class="fragment" style="margin-bottom: 2rem;">
+          <h4>PHASE 1: MOUNTING</h4>
+          <ul>
+            <li>lecture 1 : <code>render()</code> <span style="color: #1D9E75;">✓</span></li>
+            <li>lecture 2 : <code>componentDidMount()</code> / <code>useEffect()</code> <span style="color: #1D9E75;font-size:2.2rem">✓</span></li>
+          </ul>
+        </div>
+        <div class="fragment" style="margin-bottom: 2rem;">
+          <h4 style="display: flex; align-items: center; gap: 1rem;">
+            PHASE 2: UPDATING
+            <span style="display: inline-block; width: 40px; height: 40px; border: 8px solid #4f8ef7; border-top-color: #2e5ab8; border-radius: 50%; animation: spin 1.5s linear infinite;"></span>
+          </h4>
+          <ul>
+            <li>lecture 1 : <code>render()</code> (re-render) <span style="color: #1D9E75; font-size:2.2rem">✓</span></li>
+            <li>lecture 2 : <code>componentDidUpdate()</code> / <code>useEffect()</code> <span style="color: #1D9E75; font-size:2.2rem">✓</span></li>
+          </ul>
+        </div>
+        <div class="fragment">
+          <h4>PHASE 3: UNMOUNTING</h4>
+          <ul>
+            <li>lecture 1 : <span style="color: #FF0000;">✖</span></li>
+            <li>lecture 2 : <code>componentWillUnmount()</code> / <code>useEffect()</code> <span style="color: #1D9E75; font-size:2.2rem">✓</span></li>
+          </ul>
+        </div>
       </section>
       <!-- <section> -->
       <!-- <h2>Avec seulement JavaScript: le DOM direct</h2> -->
@@ -391,6 +409,28 @@ function Compteur() {
         <p>Il s'agit d'un mécanisme par lequel les props sont passées de parent à enfant, souvent de manière inutile.
         </p>
       </section>
+<section data-background-image="/src/assets/images/props-drilling.png" data-background-size="contain"
+        data-background-position="center">
+        </p>
+      </section>
+      <section data-background-image="/src/assets/images/props-drilling-no.png" data-background-size="contain"
+        data-background-position="center">
+        </p>
+      </section>
+      <section data-background-image="/src/assets/images/props-drilling-no-context.png" data-background-size="contain"
+        data-background-position="center">
+        </p>
+      </section>
+
+
+
+
+
+
+
+
+
+
 
       <!-- <section>
         

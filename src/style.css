@@ -46,9 +46,7 @@ blockquote {
 }
 
 h4 {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
+    text-align: left;
 }
 
 h4 img {
