@@ -116,3 +116,22 @@ h4 img {
     font-size: 1em;
     color:#2e5ab8;
 }
+.slide-sommaire {
+    /* color: white; */
+    text-align: left;
+    margin-left: 12rem;
+}
+.slide-sommaire li {
+    font-size: 1.2rem;
+    text-align: left;
+    /* color: white; */
+}
+.slide-sommaire h3 {
+    font-size: 1.2rem  !important;
+    text-align: left;
+    margin-bottom: 0rem;
+    /* color: white; */
+}
+.slide-sommaire ul {
+    margin-left:0;
+}

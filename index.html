@@ -62,6 +62,213 @@
         <h1 style="color: white;">Bienvenue au spa</h1>
         <p style="color: white;">Single Page Application avec React</p>
       </section>
+<!-- SOMMAIRE -->
+        <section class="slide-sommaire" data-markdown="/src/assets/md/sommaire_formation_react.md">
+      </section>
+
+      <section data-markdown>
+    <textarea data-template>
+        ## 1. Fondamentaux de React
+
+     
+        <div class="fragment">
+            <img src="/src/assets/images/animate-svg-animated.svg" alt="Logo React" ">
+        </div>
+    </textarea>
+</section>
+      
+      <section data-markdown>
+    <textarea data-template>
+        ## 1. Fondamentaux de React
+        **Le problème** — Manipuler le DOM du navigateur est coûteux : chaque modification déclenche recalculs de styles, reflow et repaint. Sur une app complexe, ça devient vite un goulot d'étranglement.
+
+        <div class="fragment">
+            <img src="/src/assets/images/react_compo_JS.svg" alt="Logo React" ">
+        </div>
+    </textarea>
+</section>
+<section data-markdown>
+   <textarea data-template>
+        ## 1. Fondamentaux de React
+        **La solution : le vDOM** — React maintient en mémoire une copie légère du DOM (de simples objets JavaScript). Quand l'état change via `setState()`, React recalcule cette copie en mémoire — pas dans le navigateur — ce qui est quasi instantané.
+     
+        <div class="fragment">
+            <img src="/src/assets/images/react_compo_vdom2.svg" alt="Logo React" ">
+        </div>
+    </textarea>
+</section>
+<section data-markdown>
+   <textarea data-template>
+        ## 1. Fondamentaux de React
+        **La réconciliation** — React compare l'ancien et le nouveau vDOM (le *diff*), identifie précisément ce qui a changé, et n'applique que ces différences au DOM réel (le *patch*). Résultat : au lieu de tout redessiner, un seul nœud est mis à jour.
+
+> **En une phrase :** React ne touche jamais le DOM sans raison — il calcule d'abord le minimum nécessaire, puis frappe une seule fois.
+        <div class="fragment">
+            <img src="/src/assets/images/virtual-recon.png" width="80%" alt="Logo React" ">
+        </div>
+    </textarea>
+</section>
+<section data-markdown>
+   <textarea data-template>
+        ## 2. Les composants
+        **Des éléments réutilisables via les props**
+     <div class="fragment">
+            <img src="/src/assets/images/composants.png" width="80%" alt="Logo React">
+        </div>
+    </textarea>
+</section>
+
+      <section>
+        <h2>2. Les composants</h2>
+        <p><strong>La structure</strong> — Un composant React est une fonction JavaScript dont le nom commence par une majuscule.</p>
+
+        <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
+          <!-- CODE À GAUCHE -->
+          <div style="flex: 2; overflow: auto;">
+            <pre style="width: 100%; font-size: 1rem; height: 100%;"><code class="language-jsx" >
+import { useState } from 'react';
+
+function Spiderman({nom, identité, ennemi}) {
+  const [vaincu, setVaincu] = useState(0);
+
+  const handleCombattre = () => {
+    const newVaincu = vaincu + 1;
+    setVaincu(newVaincu);
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;🕷️ {nom}&lt;/h3&gt;
+      &lt;p&gt;Identité : {identité}&lt;/p&gt;
+      &lt;p&gt;Affronte : 🦹 {ennemi}&lt;/p&gt;
+      &lt;p&gt;Vaincus : {vaincu}&lt;/p&gt;
+      &lt;button onClick={handleCombattre}&gt;
+        Combattre! 💥
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+            </code></pre>
+          </div>
+
+          <!-- DÉMO À DROITE -->
+          <div style="flex: 1;">
+            <iframe
+              src="/src/assets/html/demo-spiderman.html"
+              width="100%"
+              height="100%"
+              frameborder="0"
+              style="border-radius: 8px;">
+            </iframe>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>2. Les composants</h2>
+        <!-- <p><strong>La structure</strong> — Un composant React est une fonction JavaScript dont le nom commence par une majuscule.</p> -->
+<p><strong>useState</strong> — Le hook `useState(valeurInitiale)` retourne un tableau de deux éléments : la valeur actuelle et son setter. À chaque appel du setter, React re-rend automatiquement le composant avec la nouvelle valeur.
+        <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
+          <!-- CODE À GAUCHE -->
+          <div style="flex: 2; overflow: auto;">
+            <pre style="width: 100%; font-size: 2rem; height: 100%;">
+              <code class="language-jsx" data-line-numbers="4|11">
+import { useState } from 'react';
+function Spiderman({nom, identité, ennemi}) {
+  const [vaincu, setVaincu] = useState(0);
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;🕷️ {nom}&lt;/h3&gt;
+      &lt;p&gt;Identité : {identité}&lt;/p&gt;
+      &lt;p&gt;Affronte : 🦹 {ennemi}&lt;/p&gt;
+      &lt;p&gt;Vaincus : {vaincu}&lt;/p&gt;
+      &lt;button onClick={() => setVaincu(vaincu + 1)}&gt;
+        Combattre! 💥
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+            </code></pre>
+          </div>
+
+          <!-- DÉMO À DROITE -->
+          <div style="flex: 1;">
+            <iframe
+              src="/src/assets/html/demo-spiderman.html"
+              width="100%"
+              height="100%"
+              frameborder="0"
+              style="border-radius: 8px;">
+            </iframe>
+          </div>
+        </div>
+      </section>
+
+      <section><h2>2. Les composants</h2><blockquote style="border-left: 4px solid #4f8ef7; padding-left: 2rem; color: #4f8ef7;">
+  
+        <h3>Règle d'or</h3>
+  <p>On ne modifie jamais l'état directement (<code>compteur = 1</code> est interdit). On passe toujours par le setter (<code>setCompteur(1)</code>), sinon React ne détecte pas le changement et n'actualise pas l'interface.</p>
+</blockquote></section>
+
+      <section>
+        <h2>2. Les composants</h2>
+     <h2>Le JSX</h2>
+<p>C'est du HTML enrichi de JavaScript. Les accolades <code>{ }</code> permettent d'injecter n'importe quelle expression JS directement dans le rendu. Les événements s'écrivent en camelCase (<code>onClick</code>, <code>onChange</code>…).</p>
+
+
+
+        <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
+          <!-- CODE À GAUCHE -->
+          <div style="flex: 2; overflow: auto;">
+            <pre style="width: 100%; font-size: 2rem; height: 100%;">
+              <code class="language-jsx" data-line-numbers="5-14">
+import { useState } from 'react';
+function Spiderman({nom, identité, ennemi}) {
+  const [vaincu, setVaincu] = useState(0);
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;🕷️ {nom}&lt;/h3&gt;
+      &lt;p&gt;Identité : {identité}&lt;/p&gt;
+      &lt;p&gt;Affronte : 🦹 {ennemi}&lt;/p&gt;
+      &lt;p&gt;Vaincus : {vaincu}&lt;/p&gt;
+      &lt;button onClick={() => setVaincu(vaincu + 1)}&gt;
+        Combattre! 💥
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+            </code></pre>
+          </div>
+
+          <!-- DÉMO À DROITE -->
+          <div style="flex: 1;">
+            <iframe
+              src="/src/assets/html/demo-spiderman.html"
+              width="100%"
+              height="100%"
+              frameborder="0"
+              style="border-radius: 8px;">
+            </iframe>
+          </div>
+        </div>
+      </section>
+
+      <section>
+  <iframe 
+    src="/src/assets/html/demo-spiderman-props.html" 
+    width="100%" 
+    height="800" 
+    frameborder="0">
+  </iframe>
+</section>
+
+
+
+      <section data-markdown="/src/assets/md/partie_1-slide.md">
+</section>
+
+ <section data-markdown="/src/assets/md/partie2-slide.md">
+</section>
 <!-- GRAPH -->
       <section>
         <h5 class="sr-only">Graphique de l'utilisation des frameworks frontend JavaScript de 2016 à 2024, selon le State
@@ -184,6 +391,7 @@
       </section>
       <section data-transition="slide-in fade-out" data-background-image="/src/assets/images/react_compo_PascalCase.svg" data-background-size="400px">
       </section>
+       
 
       <section class="svg-animation-section">
         <?xml version="1.0" standalone="no"?>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Composant Spiderman - Props</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      margin-bottom: 3rem;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .section {
+      margin-bottom: 4rem;
+    }
+
+    .section h2 {
+      color: white;
+      margin-bottom: 2rem;
+      font-size: 1.8em;
+      text-align: center;
+    }
+
+    .heroes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .spiderman-card {
+      background: linear-gradient(135deg, #1e2139 0%, #2d3561 100%);
+      border: 2px solid #667eea;
+      border-radius: 16px;
+      padding: 1.5rem;
+      color: #e2e8f0;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .spiderman-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 50px rgba(102, 126, 234, 0.4);
+    }
+
+    .spiderman-card h3 {
+      font-size: 1.5em;
+      margin-bottom: 0.8rem;
+      color: #60a5fa;
+    }
+
+    .spiderman-card p {
+      margin-bottom: 0.6rem;
+      font-size: 0.95em;
+      line-height: 1.5;
+    }
+
+    .label {
+      color: #94a3b8;
+      font-weight: 600;
+      display: inline-block;
+      width: 100px;
+    }
+
+    .value {
+      color: #4ade80;
+      font-weight: 600;
+    }
+
+    .code-section {
+      background: linear-gradient(135deg, #1e2139 0%, #2d3561 100%);
+      border: 2px solid #667eea;
+      border-radius: 16px;
+      padding: 2rem;
+      color: #e2e8f0;
+    }
+
+    .code-section h3 {
+      color: #60a5fa;
+      margin-bottom: 1.5rem;
+      font-size: 1.3em;
+    }
+
+    .code-section pre {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.95em;
+      line-height: 1.6;
+    }
+
+    .code-section code {
+      color: #fbbf24;
+      font-family: 'Courier New', monospace;
+    }
+
+    .comment {
+      color: #6b7280;
+    }
+
+    .tag {
+      color: #60a5fa;
+    }
+
+    .prop {
+      color: #fca5a5;
+    }
+
+    .string {
+      color: #4ade80;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🕷️ Props en Action</h1>
+
+    <!-- SECTION 1: LES CARDS -->
+    <div class="section">
+      <h2>Les différentes instances du composant</h2>
+      <div class="heroes-grid" id="heroesContainer"></div>
+    </div>
+
+    <!-- SECTION 2: LE CODE -->
+    <div class="section">
+      <div class="code-section">
+        <h3>💻 Comment les utiliser en React</h3>
+        <pre><code><span class="comment">// Importer le composant</span>
+<span class="tag">import</span> Spiderman <span class="tag">from</span> <span class="string">'./Spiderman'</span>;
+
+<span class="comment">// Utiliser le composant avec différentes props</span>
+<span class="tag">function</span> App() {
+  <span class="tag">return</span> (
+    &lt;&gt;
+      &lt;<span class="tag">Spiderman</span>
+        <span class="prop">nom</span>=<span class="string">"Spider-Man"</span>
+        <span class="prop">identité</span>=<span class="string">"Peter Parker"</span>
+        <span class="prop">ennemi</span>=<span class="string">"Venom"</span>
+      /&gt;
+
+      &lt;<span class="tag">Spiderman</span>
+        <span class="prop">nom</span>=<span class="string">"Spider-Gwen"</span>
+        <span class="prop">identité</span>=<span class="string">"Gwen Stacy"</span>
+        <span class="prop">ennemi</span>=<span class="string">"Green Goblin"</span>
+      /&gt;
+
+      &lt;<span class="tag">Spiderman</span>
+        <span class="prop">nom</span>=<span class="string">"Miles Morales"</span>
+        <span class="prop">identité</span>=<span class="string">"Miles Morales"</span>
+        <span class="prop">ennemi</span>=<span class="string">"Kingpin"</span>
+      /&gt;
+    &lt;/&gt;
+  );
+}
+        </code></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const heroes = [
+      {
+        nom: "Spider-Man",
+        identité: "Peter Parker",
+        ennemi: "Venom"
+      },
+      {
+        nom: "Spider-Gwen",
+        identité: "Gwen Stacy",
+        ennemi: "Green Goblin"
+      },
+      {
+        nom: "Miles Morales",
+        identité: "Miles Morales",
+        ennemi: "Kingpin"
+      }
+    ];
+
+    function createSpidermanCard(hero) {
+      const card = document.createElement('div');
+      card.className = 'spiderman-card';
+      card.innerHTML = `
+        <h3>🕷️ ${hero.nom}</h3>
+        <p><span class="label">Identité :</span> <span class="value">${hero.identité}</span></p>
+        <p><span class="label">Affronte :</span> <span class="value">🦹 ${hero.ennemi}</span></p>
+      `;
+      return card;
+    }
+
+    const container = document.getElementById('heroesContainer');
+    heroes.forEach(hero => {
+      container.appendChild(createSpidermanCard(hero));
+    });
+  </script>
+</body>
+</html>

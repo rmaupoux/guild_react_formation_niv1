@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Composant Spiderman - Démo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* padding: 2rem; */
+    }
+
+    #heroesContainer {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .spiderman-card {
+      background: linear-gradient(135deg, #1e2139 0%, #2d3561 100%);
+      border: 2px solid #667eea;
+      border-radius: 16px;
+      padding: 2rem;
+      color: #e2e8f0;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .spiderman-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 50px rgba(102, 126, 234, 0.4);
+    }
+
+    .spiderman-card h3 {
+      font-size: 1.8em;
+      margin-bottom: 1rem;
+      color: #60a5fa;
+    }
+
+    .spiderman-card p {
+      margin-bottom: 0.8rem;
+      font-size: 1.05em;
+      line-height: 1.6;
+    }
+
+    .label {
+      color: #94a3b8;
+      font-weight: 600;
+      display: inline-block;
+      width: 120px;
+    }
+
+    .value {
+      color: #4ade80;
+      font-weight: 600;
+    }
+
+    .counter {
+      background: rgba(102, 126, 234, 0.2);
+      border-left: 3px solid #667eea;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+    }
+
+    .counter-number {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #60a5fa;
+      text-align: center;
+    }
+
+    .button {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .button:active {
+      transform: scale(0.98);
+    }
+
+    .victory {
+      animation: pulse 0.6s ease;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div id="heroesContainer"></div>
+
+  <script>
+    // Données du héros (simule les props)
+    const hero = {
+      nom: "Spider-Man",
+      identité: "Peter Parker",
+      ennemi: "Venom"
+    };
+
+    // État global (simule useState)
+    let vaincu = 0;
+
+    // Composant Spiderman (version HTML)
+    function createSpidermanCard() {
+      const card = document.createElement('div');
+      card.className = 'spiderman-card';
+      card.innerHTML = `
+        <h3>🕷️ ${hero.nom}</h3>
+        <p><span class="label">Identité :</span> <span class="value">${hero.identité}</span></p>
+        <p><span class="label">Affronte :</span> <span class="value">🦹 ${hero.ennemi}</span></p>
+
+        <div class="counter">
+          <p style="color: #94a3b8; margin-bottom: 0.5rem; font-size: 0.9em;">Ennemis vaincus</p>
+          <div class="counter-number" id="counter">0</div>
+        </div>
+
+        <button class="button" id="combatBtn">
+          Combattre! 💥
+        </button>
+      `;
+
+      // Gestion du click (simule onClick)
+      card.querySelector('#combatBtn').addEventListener('click', () => {
+        vaincu++;
+        const counterEl = card.querySelector('#counter');
+        counterEl.textContent = vaincu;
+        counterEl.parentElement.classList.add('victory');
+        setTimeout(() => {
+          counterEl.parentElement.classList.remove('victory');
+        }, 600);
+      });
+
+      return card;
+    }
+
+    // Rendu du composant
+    const container = document.getElementById('heroesContainer');
+    container.appendChild(createSpidermanCard());
+  </script>
+</body>
+</html>
