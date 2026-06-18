@@ -1,6 +1,4 @@
-# Le JSX
-
-## Qu'est-ce que c'est ?
+## 2 - Les composants
 
 <div class="two-columns">
   <div>

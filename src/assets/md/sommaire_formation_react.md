@@ -8,16 +8,12 @@
 
 ### 2. Composants
 - Structure d'un composant
+- `useState` — exemple : spiderman
 - JSX
-- `useState` — exemple : compteur
 - Props
 
-
 ### 3. Communication entre composants
-- Props drilling
-- Arbre de composants & limites
-
-
+- Props drilling — exemple : poupées matrioshka
 
 ### 4. Context API
 - `createContext` & `Provider`
@@ -29,4 +25,4 @@
 ### 5. Cycle de vie & re-rendu
 - `useEffect` — dépendances & cleanup
 - Déclencheurs de re-rendu
-- Optimisation
+

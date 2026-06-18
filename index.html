@@ -39,9 +39,15 @@
     h6 {
       font-family: 'Roboto Slab', serif !important;
     }
+
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
   <!-- Chart.js pour le graphique -->
@@ -62,342 +68,16 @@
         <h1 style="color: white;">Bienvenue au spa</h1>
         <p style="color: white;">Single Page Application avec React</p>
       </section>
-<!-- SOMMAIRE -->
-        <section class="slide-sommaire" data-markdown="/src/assets/md/sommaire_formation_react.md">
+      <!-- SOMMAIRE -->
+      <section class="slide-sommaire" data-markdown="/src/assets/md/sommaire_formation_react.md">
       </section>
 
-      <section data-markdown>
-    <textarea data-template>
-        ## 1. Fondamentaux de React
-
-     
-        <div class="fragment">
-            <img src="/src/assets/images/animate-svg-animated.svg" alt="Logo React" ">
-        </div>
-    </textarea>
-</section>
-      
-      <section data-markdown>
-    <textarea data-template>
-        ## 1. Fondamentaux de React
-        **Le problème** — Manipuler le DOM du navigateur est coûteux : chaque modification déclenche recalculs de styles, reflow et repaint. Sur une app complexe, ça devient vite un goulot d'étranglement.
-
-        <div class="fragment">
-            <img src="/src/assets/images/react_compo_JS.svg" alt="Logo React" ">
-        </div>
-    </textarea>
-</section>
-<section data-markdown>
-   <textarea data-template>
-        ## 1. Fondamentaux de React
-        **La solution : le vDOM** — React maintient en mémoire une copie légère du DOM (de simples objets JavaScript). Quand l'état change via `setState()`, React recalcule cette copie en mémoire — pas dans le navigateur — ce qui est quasi instantané.
-     
-        <div class="fragment">
-            <img src="/src/assets/images/react_compo_vdom2.svg" alt="Logo React" ">
-        </div>
-    </textarea>
-</section>
-<section data-markdown>
-   <textarea data-template>
-        ## 1. Fondamentaux de React
-        **La réconciliation** — React compare l'ancien et le nouveau vDOM (le *diff*), identifie précisément ce qui a changé, et n'applique que ces différences au DOM réel (le *patch*). Résultat : au lieu de tout redessiner, un seul nœud est mis à jour.
-
-> **En une phrase :** React ne touche jamais le DOM sans raison — il calcule d'abord le minimum nécessaire, puis frappe une seule fois.
-        <div class="fragment">
-            <img src="/src/assets/images/virtual-recon.png" width="80%" alt="Logo React" ">
-        </div>
-    </textarea>
-</section>
-<section data-markdown>
-   <textarea data-template>
-        ## 2. Les composants
-        **Des éléments réutilisables via les props**
-     <div class="fragment">
-            <img src="/src/assets/images/composants.png" width="80%" alt="Logo React">
-        </div>
-    </textarea>
-</section>
-
-      <section>
-        <h2>2. Les composants</h2>
-        <p><strong>La structure</strong> — Un composant React est une fonction JavaScript dont le nom commence par une majuscule.</p>
-
-        <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
-          <!-- CODE À GAUCHE -->
-          <div style="flex: 2; overflow: auto;">
-            <pre style="width: 100%; font-size: 1rem; height: 100%;"><code class="language-jsx" >
-import { useState } from 'react';
-
-function Spiderman({nom, identité, ennemi}) {
-  const [vaincu, setVaincu] = useState(0);
-
-  const handleCombattre = () => {
-    const newVaincu = vaincu + 1;
-    setVaincu(newVaincu);
-  };
-
-  return (
-    &lt;div&gt;
-      &lt;h3&gt;🕷️ {nom}&lt;/h3&gt;
-      &lt;p&gt;Identité : {identité}&lt;/p&gt;
-      &lt;p&gt;Affronte : 🦹 {ennemi}&lt;/p&gt;
-      &lt;p&gt;Vaincus : {vaincu}&lt;/p&gt;
-      &lt;button onClick={handleCombattre}&gt;
-        Combattre! 💥
-      &lt;/button&gt;
-    &lt;/div&gt;
-  );
-}
-            </code></pre>
-          </div>
-
-          <!-- DÉMO À DROITE -->
-          <div style="flex: 1;">
-            <iframe
-              src="/src/assets/html/demo-spiderman.html"
-              width="100%"
-              height="100%"
-              frameborder="0"
-              style="border-radius: 8px;">
-            </iframe>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>2. Les composants</h2>
-        <!-- <p><strong>La structure</strong> — Un composant React est une fonction JavaScript dont le nom commence par une majuscule.</p> -->
-<p><strong>useState</strong> — Le hook `useState(valeurInitiale)` retourne un tableau de deux éléments : la valeur actuelle et son setter. À chaque appel du setter, React re-rend automatiquement le composant avec la nouvelle valeur.
-        <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
-          <!-- CODE À GAUCHE -->
-          <div style="flex: 2; overflow: auto;">
-            <pre style="width: 100%; font-size: 2rem; height: 100%;">
-              <code class="language-jsx" data-line-numbers="4|11">
-import { useState } from 'react';
-function Spiderman({nom, identité, ennemi}) {
-  const [vaincu, setVaincu] = useState(0);
-  return (
-    &lt;div&gt;
-      &lt;h3&gt;🕷️ {nom}&lt;/h3&gt;
-      &lt;p&gt;Identité : {identité}&lt;/p&gt;
-      &lt;p&gt;Affronte : 🦹 {ennemi}&lt;/p&gt;
-      &lt;p&gt;Vaincus : {vaincu}&lt;/p&gt;
-      &lt;button onClick={() => setVaincu(vaincu + 1)}&gt;
-        Combattre! 💥
-      &lt;/button&gt;
-    &lt;/div&gt;
-  );
-}
-            </code></pre>
-          </div>
-
-          <!-- DÉMO À DROITE -->
-          <div style="flex: 1;">
-            <iframe
-              src="/src/assets/html/demo-spiderman.html"
-              width="100%"
-              height="100%"
-              frameborder="0"
-              style="border-radius: 8px;">
-            </iframe>
-          </div>
-        </div>
-      </section>
-
-      <section><h2>2. Les composants</h2><blockquote style="border-left: 4px solid #4f8ef7; padding-left: 2rem; color: #4f8ef7;">
-  
-        <h3>Règle d'or</h3>
-  <p>On ne modifie jamais l'état directement (<code>compteur = 1</code> est interdit). On passe toujours par le setter (<code>setCompteur(1)</code>), sinon React ne détecte pas le changement et n'actualise pas l'interface.</p>
-</blockquote></section>
-
-      <section>
-        <h2>2. Les composants</h2>
-     <h2>Le JSX</h2>
-<p>C'est du HTML enrichi de JavaScript. Les accolades <code>{ }</code> permettent d'injecter n'importe quelle expression JS directement dans le rendu. Les événements s'écrivent en camelCase (<code>onClick</code>, <code>onChange</code>…).</p>
-
-
-
-        <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
-          <!-- CODE À GAUCHE -->
-          <div style="flex: 2; overflow: auto;">
-            <pre style="width: 100%; font-size: 2rem; height: 100%;">
-              <code class="language-jsx" data-line-numbers="5-14">
-import { useState } from 'react';
-function Spiderman({nom, identité, ennemi}) {
-  const [vaincu, setVaincu] = useState(0);
-  return (
-    &lt;div&gt;
-      &lt;h3&gt;🕷️ {nom}&lt;/h3&gt;
-      &lt;p&gt;Identité : {identité}&lt;/p&gt;
-      &lt;p&gt;Affronte : 🦹 {ennemi}&lt;/p&gt;
-      &lt;p&gt;Vaincus : {vaincu}&lt;/p&gt;
-      &lt;button onClick={() => setVaincu(vaincu + 1)}&gt;
-        Combattre! 💥
-      &lt;/button&gt;
-    &lt;/div&gt;
-  );
-}
-            </code></pre>
-          </div>
-
-          <!-- DÉMO À DROITE -->
-          <div style="flex: 1;">
-            <iframe
-              src="/src/assets/html/demo-spiderman.html"
-              width="100%"
-              height="100%"
-              frameborder="0"
-              style="border-radius: 8px;">
-            </iframe>
-          </div>
-        </div>
-      </section>
-
-      <section>
-  <iframe 
-    src="/src/assets/html/demo-spiderman-props.html" 
-    width="100%" 
-    height="800" 
-    frameborder="0">
-  </iframe>
-</section>
-
-
-
-      <section data-markdown="/src/assets/md/partie_1-slide.md">
-</section>
-
- <section data-markdown="/src/assets/md/partie2-slide.md">
-</section>
-<!-- GRAPH -->
-      <section>
-        <h5 class="sr-only">Graphique de l'utilisation des frameworks frontend JavaScript de 2016 à 2024, selon le State
-          of JS.
-        </h5>
-
-        <div
-          style="display:flex;flex-wrap:wrap;gap:10px;margin:1rem 0 0.5rem;font-size:13px;color:var(--color-text-secondary);">
-          <span style="display:flex;align-items:center;gap:5px;"><span
-              style="width:28px;height:3px;background:#4f8ef7;display:inline-block;border-radius:2px;"></span>React</span>
-          <span style="display:flex;align-items:center;gap:5px;"><span
-              style="width:28px;height:3px;background:#42c38b;display:inline-block;border-radius:2px;"></span>Vue.js</span>
-          <span style="display:flex;align-items:center;gap:5px;"><span
-              style="width:28px;height:3px;background:#e05a9e;display:inline-block;border-radius:2px;"></span>Angular</span>
-          <span style="display:flex;align-items:center;gap:5px;"><span
-              style="width:28px;height:3px;background:#f7a745;display:inline-block;border-radius:2px;"></span>Svelte</span>
-          <span style="display:flex;align-items:center;gap:5px;"><span
-              style="width:28px;height:3px;background:#9f71e8;display:inline-block;border-radius:2px;"></span>Preact</span>
-          <span style="display:flex;align-items:center;gap:5px;"><span
-              style="width:28px;height:3px;background:#3dcbd4;display:inline-block;border-radius:2px;"></span>Lit</span>
-          <span style="display:flex;align-items:center;gap:5px;"><span
-              style="width:28px;height:3px;background:#e46c4a;display:inline-block;border-radius:2px;"></span>Solid</span>
-        </div>
-
-        <div style="position:relative;width:100%;height:380px;">
-          <canvas id="fwChart" role="img"
-            aria-label="Évolution de l'utilisation des frameworks frontend JS de 2016 à 2024 selon le State of JS. React domine à 82%, Vue.js en 2e position, Angular en 3e.">React
-            53%→82%, Vue.js 10%→52%, Angular 20%→43%, Svelte 0%→24%, Preact 0%→15%, Lit 0%→9%, Solid 0%→6%.</canvas>
-        </div>
-
-        <p style="font-size:12px;color:var(--color-text-secondary);margin:0.5rem 0 1rem;text-align:right;">Sources :
-          State of JS
-          2016–2024 · <a href="https://2024.stateofjs.com/en-US/libraries/front-end-frameworks/"
-            target="_blank">StackOverflow Developer Survey 2024</a></p>
-
-        <script>
-          const labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'];
-          const datasets = [
-            {
-              label: 'React',
-              data: [53, 62, 72, 80, 80, 80, 82, 83, 82],
-              borderColor: '#4f8ef7', backgroundColor: 'rgba(79,142,247,0.08)',
-              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#4f8ef7', tension: 0.35, fill: false,
-              borderDash: [],
-            },
-            {
-              label: 'Vue.js',
-              data: [10, 11, 11, 47, 49, 51, 46, 52, 52],
-              borderColor: '#42c38b', backgroundColor: 'rgba(66,195,139,0.08)',
-              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#42c38b', tension: 0.35, fill: false,
-            },
-            {
-              label: 'Angular',
-              data: [20, 29, 58, 58, 56, 54, 49, 49, 43],
-              borderColor: '#e05a9e', backgroundColor: 'rgba(224,90,158,0.08)',
-              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#e05a9e', tension: 0.35, fill: false,
-            },
-            {
-              label: 'Svelte',
-              data: [null, null, null, 8, 15, 20, 21, 23, 24],
-              borderColor: '#f7a745', backgroundColor: 'rgba(247,167,69,0.08)',
-              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#f7a745', tension: 0.35, fill: false,
-            },
-            {
-              label: 'Preact',
-              data: [null, null, 8, 12, 14, 14, 13, 13, 15],
-              borderColor: '#9f71e8', backgroundColor: 'rgba(159,113,232,0.08)',
-              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#9f71e8', tension: 0.35, fill: false,
-            },
-            {
-              label: 'Lit',
-              data: [null, null, null, null, 5, 7, 7, 8, 9],
-              borderColor: '#3dcbd4', backgroundColor: 'rgba(61,203,212,0.08)',
-              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#3dcbd4', tension: 0.35, fill: false,
-            },
-            {
-              label: 'Solid',
-              data: [null, null, null, null, 1, 3, 4, 5, 6],
-              borderColor: '#e46c4a', backgroundColor: 'rgba(228,108,74,0.08)',
-              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#e46c4a', tension: 0.35, fill: false,
-            },
-          ];
-          new Chart(document.getElementById('fwChart'), {
-            type: 'line',
-            data: {labels, datasets},
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              interaction: {mode: 'index', intersect: false},
-              plugins: {
-                legend: {display: false},
-                tooltip: {
-                  callbacks: {
-                    label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}%`
-                  }
-                }
-              },
-              scales: {
-                x: {
-                  grid: {color: 'rgba(128,128,128,0.1)'},
-                  ticks: {font: {size: 12}, color: '#888', autoSkip: false}
-                },
-                y: {
-                  min: 0, max: 100,
-                  grid: {color: 'rgba(128,128,128,0.1)'},
-                  ticks: {
-                    font: {size: 12}, color: '#888',
-                    callback: v => v + '%', stepSize: 20
-                  }
-                }
-              }
-            }
-          });
-        </script>
-      </section>
-
-      <section data-background-image="/src/assets/images/react_compo_JS.svg" data-background-size="800px" data-transition="slide-in fade-out">
-      </section>
-      <section data-background-image="/src/assets/images/react_compo_vdom.svg" data-background-size="800px"data-transition="slide-in fade-out">
-      </section>
-      <section data-transition="slide-in fade-out" data-background-image="/src/assets/images/react_compo_PascalCase.svg" data-background-size="400px">
-      </section>
-       
 
       <section class="svg-animation-section">
         <?xml version="1.0" standalone="no"?>
         <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
-        <h4 style="justify-content: center;"> Qu'est-ce que React ?</h4>
+        <h3> 1. Fondamentaux de React</h3>
         <p>Une bibliothèque JavaScript pour construire des interfaces utilisateur</p>
 
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 291.6728624535316" width="300"
@@ -488,49 +168,451 @@ function Spiderman({nom, identité, ennemi}) {
 
         </svg>
       </section>
-   
-      <section style="font-size: 0.5em; width: 80%; text-align: left; margin: 0 auto;">
-        <h1 class="fragment">UseEffect : Le cycle de vie d'un composant React</h1>
-        <div class="fragment" style="margin-bottom: 2rem;">
-          <h4>PHASE 1: MOUNTING</h4>
-          <ul>
-            <li>lecture 1 : <code>render()</code> <span style="color: #1D9E75;">✓</span></li>
-            <li>lecture 2 : <code>componentDidMount()</code> / <code>useEffect()</code> <span style="color: #1D9E75;font-size:2.2rem">✓</span></li>
-          </ul>
-        </div>
-        <div class="fragment" style="margin-bottom: 2rem;">
-          <h4 style="display: flex; align-items: center; gap: 1rem;">
-            PHASE 2: UPDATING
-            <span style="display: inline-block; width: 40px; height: 40px; border: 8px solid #4f8ef7; border-top-color: #2e5ab8; border-radius: 50%; animation: spin 1.5s linear infinite;"></span>
-          </h4>
-          <ul>
-            <li>lecture 1 : <code>render()</code> (re-render) <span style="color: #1D9E75; font-size:2.2rem">✓</span></li>
-            <li>lecture 2 : <code>componentDidUpdate()</code> / <code>useEffect()</code> <span style="color: #1D9E75; font-size:2.2rem">✓</span></li>
-          </ul>
-        </div>
+
+      <section data-markdown>
+        <textarea data-template>
+        ## 1. Fondamentaux de React
+        **Le problème** — Manipuler le DOM du navigateur est coûteux : chaque modification déclenche recalculs de styles, reflow et repaint. Sur une app complexe, ça devient vite un goulot d'étranglement.
+
         <div class="fragment">
-          <h4>PHASE 3: UNMOUNTING</h4>
-          <ul>
-            <li>lecture 1 : <span style="color: #FF0000;">✖</span></li>
-            <li>lecture 2 : <code>componentWillUnmount()</code> / <code>useEffect()</code> <span style="color: #1D9E75; font-size:2.2rem">✓</span></li>
-          </ul>
+            <img src="/src/assets/images/react_compo_JS.svg" alt="Logo React" ">
+        </div>
+    </textarea>
+      </section>
+      <section data-markdown>
+        <textarea data-template>
+        ## 1. Fondamentaux de React
+        **La solution : le vDOM** — React maintient en mémoire une copie légère du DOM (de simples objets JavaScript). Quand l'état change via `setState()`, React recalcule cette copie en mémoire — pas dans le navigateur — ce qui est quasi instantané.
+     
+        <div class="fragment">
+            <img src="/src/assets/images/react_compo_vdom2.svg" alt="Logo React" ">
+        </div>
+    </textarea>
+      </section>
+      <section data-markdown>
+        <textarea data-template>
+        ## 1. Fondamentaux de React
+        **La réconciliation** — React compare l'ancien et le nouveau vDOM (le *diff*), identifie précisément ce qui a changé, et n'applique que ces différences au DOM réel (le *patch*). Résultat : au lieu de tout redessiner, un seul nœud est mis à jour.
+
+> **En une phrase :** React ne touche jamais le DOM sans raison — il calcule d'abord le minimum nécessaire, puis frappe une seule fois.
+        <div class="fragment">
+            <img src="/src/assets/images/virtual-recon.png" width="80%" alt="Logo React" ">
+        </div>
+    </textarea>
+      </section>
+      <!-- GRAPH -->
+      <section>
+        <h5 class="sr-only">Graphique de l'utilisation des frameworks frontend JavaScript de 2016 à 2024, selon le State
+          of JS.
+        </h5>
+
+        <div
+          style="display:flex;flex-wrap:wrap;gap:10px;margin:1rem 0 0.5rem;font-size:13px;color:var(--color-text-secondary);">
+          <span style="display:flex;align-items:center;gap:5px;"><span
+              style="width:28px;height:3px;background:#4f8ef7;display:inline-block;border-radius:2px;"></span>React</span>
+          <span style="display:flex;align-items:center;gap:5px;"><span
+              style="width:28px;height:3px;background:#42c38b;display:inline-block;border-radius:2px;"></span>Vue.js</span>
+          <span style="display:flex;align-items:center;gap:5px;"><span
+              style="width:28px;height:3px;background:#e05a9e;display:inline-block;border-radius:2px;"></span>Angular</span>
+          <span style="display:flex;align-items:center;gap:5px;"><span
+              style="width:28px;height:3px;background:#f7a745;display:inline-block;border-radius:2px;"></span>Svelte</span>
+          <span style="display:flex;align-items:center;gap:5px;"><span
+              style="width:28px;height:3px;background:#9f71e8;display:inline-block;border-radius:2px;"></span>Preact</span>
+          <span style="display:flex;align-items:center;gap:5px;"><span
+              style="width:28px;height:3px;background:#3dcbd4;display:inline-block;border-radius:2px;"></span>Lit</span>
+          <span style="display:flex;align-items:center;gap:5px;"><span
+              style="width:28px;height:3px;background:#e46c4a;display:inline-block;border-radius:2px;"></span>Solid</span>
+        </div>
+
+        <div style="position:relative;width:100%;height:380px;">
+          <canvas id="fwChart" role="img"
+            aria-label="Évolution de l'utilisation des frameworks frontend JS de 2016 à 2024 selon le State of JS. React domine à 82%, Vue.js en 2e position, Angular en 3e.">React
+            53%→82%, Vue.js 10%→52%, Angular 20%→43%, Svelte 0%→24%, Preact 0%→15%, Lit 0%→9%, Solid 0%→6%.</canvas>
+        </div>
+
+        <p style="font-size:12px;color:var(--color-text-secondary);margin:0.5rem 0 1rem;text-align:right;">Sources :
+          State of JS
+          2016–2024 · <a href="https://2024.stateofjs.com/en-US/libraries/front-end-frameworks/"
+            target="_blank">StackOverflow Developer Survey 2024</a></p>
+
+        <script>
+          const labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'];
+          const datasets = [
+            {
+              label: 'React',
+              data: [53, 62, 72, 80, 80, 80, 82, 83, 82],
+              borderColor: '#4f8ef7', backgroundColor: 'rgba(79,142,247,0.08)',
+              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#4f8ef7', tension: 0.35, fill: false,
+              borderDash: [],
+            },
+            {
+              label: 'Vue.js',
+              data: [10, 11, 11, 47, 49, 51, 46, 52, 52],
+              borderColor: '#42c38b', backgroundColor: 'rgba(66,195,139,0.08)',
+              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#42c38b', tension: 0.35, fill: false,
+            },
+            {
+              label: 'Angular',
+              data: [20, 29, 58, 58, 56, 54, 49, 49, 43],
+              borderColor: '#e05a9e', backgroundColor: 'rgba(224,90,158,0.08)',
+              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#e05a9e', tension: 0.35, fill: false,
+            },
+            {
+              label: 'Svelte',
+              data: [null, null, null, 8, 15, 20, 21, 23, 24],
+              borderColor: '#f7a745', backgroundColor: 'rgba(247,167,69,0.08)',
+              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#f7a745', tension: 0.35, fill: false,
+            },
+            {
+              label: 'Preact',
+              data: [null, null, 8, 12, 14, 14, 13, 13, 15],
+              borderColor: '#9f71e8', backgroundColor: 'rgba(159,113,232,0.08)',
+              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#9f71e8', tension: 0.35, fill: false,
+            },
+            {
+              label: 'Lit',
+              data: [null, null, null, null, 5, 7, 7, 8, 9],
+              borderColor: '#3dcbd4', backgroundColor: 'rgba(61,203,212,0.08)',
+              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#3dcbd4', tension: 0.35, fill: false,
+            },
+            {
+              label: 'Solid',
+              data: [null, null, null, null, 1, 3, 4, 5, 6],
+              borderColor: '#e46c4a', backgroundColor: 'rgba(228,108,74,0.08)',
+              borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#e46c4a', tension: 0.35, fill: false,
+            },
+          ];
+          new Chart(document.getElementById('fwChart'), {
+            type: 'line',
+            data: { labels, datasets },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              interaction: { mode: 'index', intersect: false },
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  callbacks: {
+                    label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}%`
+                  }
+                }
+              },
+              scales: {
+                x: {
+                  grid: { color: 'rgba(128,128,128,0.1)' },
+                  ticks: { font: { size: 12 }, color: '#888', autoSkip: false }
+                },
+                y: {
+                  min: 0, max: 100,
+                  grid: { color: 'rgba(128,128,128,0.1)' },
+                  ticks: {
+                    font: { size: 12 }, color: '#888',
+                    callback: v => v + '%', stepSize: 20
+                  }
+                }
+              }
+            }
+          });
+        </script>
+      </section>
+      <section data-markdown>
+        <textarea data-template>
+        ## 2. Les composants
+        **Des éléments réutilisables via les props**
+     <div class="fragment">
+            <img src="/src/assets/images/composants.png" width="80%" alt="Logo React">
+        </div>
+    </textarea>
+      </section>
+
+      <section>
+        <h2>2. Les composants</h2>
+        <p><strong>La structure</strong> — Un composant React est une fonction JavaScript dont le nom commence par une
+          majuscule.</p>
+
+        <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
+          <!-- CODE À GAUCHE -->
+          <div style="flex: 2; overflow: auto;">
+            <pre style="width: 100%; font-size: 1rem; height: 100%;"><code class="language-jsx" >
+import { useState } from 'react';
+
+function Spiderman({nom, identité, ennemi}) {
+  const [vaincu, setVaincu] = useState(0);
+
+  const handleCombattre = () => {
+    const newVaincu = vaincu + 1;
+    setVaincu(newVaincu);
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;🕷️ {nom}&lt;/h3&gt;
+      &lt;p&gt;Identité : {identité}&lt;/p&gt;
+      &lt;p&gt;Affronte : 🦹 {ennemi}&lt;/p&gt;
+      &lt;p&gt;Vaincus : {vaincu}&lt;/p&gt;
+      &lt;button onClick={handleCombattre}&gt;
+        Combattre! 💥
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+            </code></pre>
+          </div>
+
+          <!-- DÉMO À DROITE -->
+          <div style="flex: 1;">
+            <iframe src="/src/assets/html/demo-spiderman.html" width="100%" height="100%" frameborder="0"
+              style="border-radius: 8px;">
+            </iframe>
+          </div>
         </div>
       </section>
-      <!-- <section> -->
-      <!-- <h2>Avec seulement JavaScript: le DOM direct</h2> -->
-      <!-- <div style="display: flex; gap: 2rem; justify-content: center; align-items: center; flex-wrap: wrap;"> -->
-      <!-- <img src="/src/assets/images/js_dom_direct.svg" alt="DOM Direct" width="650"> -->
-      <!-- <img src="/src/assets/images/v-dom.svg" alt="Virtual DOM" width="450"> -->
-      <!-- </div> -->
-      <!-- </section> -->
-      <!-- <section> -->
-      <!-- <h2>Avec React: le DOM virtuel</h2> -->
-      <!-- <div style="display: flex; gap: 2rem; justify-content: center; align-items: center; flex-wrap: wrap;"> -->
-      <!-- <img src="/src/assets/images/js_dom_direct.svg" alt="DOM Direct" width="650"> -->
-      <!-- <img src="/src/assets/images/v-dom.svg" alt="Virtual DOM" width="750"> -->
-      <!-- </div> -->
-      <!-- </section> -->
-      <!-- <section>
+
+      <section>
+        <h2>2. Les composants</h2>
+        <!-- <p><strong>La structure</strong> — Un composant React est une fonction JavaScript dont le nom commence par une majuscule.</p> -->
+        <p><strong>useState</strong> — Le hook `useState(valeurInitiale)` retourne un tableau de deux éléments : la
+          valeur actuelle et son setter. À chaque appel du setter, React re-rend automatiquement le composant avec la
+          nouvelle valeur.
+        <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
+          <!-- CODE À GAUCHE -->
+          <div style="flex: 2; overflow: auto;">
+            <pre style="width: 100%; font-size: 2rem; height: 100%;">
+              <code class="language-jsx" data-line-numbers="4|11">
+import { useState } from 'react';
+function Spiderman({nom, identité, ennemi}) {
+  const [vaincu, setVaincu] = useState(0);
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;🕷️ {nom}&lt;/h3&gt;
+      &lt;p&gt;Identité : {identité}&lt;/p&gt;
+      &lt;p&gt;Affronte : 🦹 {ennemi}&lt;/p&gt;
+      &lt;p&gt;Vaincus : {vaincu}&lt;/p&gt;
+      &lt;button onClick={() => setVaincu(vaincu + 1)}&gt;
+        Combattre! 💥
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+            </code></pre>
+          </div>
+
+          <!-- DÉMO À DROITE -->
+          <div style="flex: 1;">
+            <iframe src="/src/assets/html/demo-spiderman.html" width="100%" height="100%" frameborder="0"
+              style="border-radius: 8px;">
+            </iframe>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>2. Les composants</h2>
+        <blockquote style="border-left: 4px solid #4f8ef7; padding-left: 2rem; color: #4f8ef7;">
+
+          <h3>Règle d'or</h3>
+          <p>On ne modifie jamais l'état directement (<code>compteur = 1</code> est interdit). On passe toujours par le
+            setter (<code>setCompteur(1)</code>), sinon React ne détecte pas le changement et n'actualise pas
+            l'interface.</p>
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>2. Les composants</h2>
+        <h2>Le JSX</h2>
+        <p>C'est du HTML enrichi de JavaScript. Les accolades <code>{ }</code> permettent d'injecter n'importe quelle
+          expression JS directement dans le rendu. Les événements s'écrivent en camelCase (<code>onClick</code>,
+          <code>onChange</code>…).</p>
+
+
+
+        <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
+          <!-- CODE À GAUCHE -->
+          <div style="flex: 2; overflow: auto;">
+            <pre style="width: 100%; font-size: 2rem; height: 100%;">
+              <code class="language-jsx" data-line-numbers="5-14">
+import { useState } from 'react';
+function Spiderman({nom, identité, ennemi}) {
+  const [vaincu, setVaincu] = useState(0);
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;🕷️ {nom}&lt;/h3&gt;
+      &lt;p&gt;Identité : {identité}&lt;/p&gt;
+      &lt;p&gt;Affronte : 🦹 {ennemi}&lt;/p&gt;
+      &lt;p&gt;Vaincus : {vaincu}&lt;/p&gt;
+      &lt;button onClick={() => setVaincu(vaincu + 1)}&gt;
+        Combattre! 💥
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+            </code></pre>
+          </div>
+
+          <!-- DÉMO À DROITE -->
+          <div style="flex: 1;">
+            <iframe src="/src/assets/html/demo-spiderman.html" width="100%" height="100%" frameborder="0"
+              style="border-radius: 8px;">
+            </iframe>
+          </div>
+        </div>
+      </section>
+      <section>
+        <section data-markdown="/src/assets/md/INTRODUCTION_JSX.md">
+        </section>
+
+
+      </section>
+
+      <section>
+        <iframe src="/src/assets/html/demo-spiderman-props.html" width="100%" height="800" frameborder="0">
+        </iframe>
+      </section>
+
+
+      <section data-transition="slide-in fade-out" data-background-image="/src/assets/images/react_compo_PascalCase.svg"
+        data-background-size="400px">
+      </section>
+
+      <section data-background-image="/src/assets/images/poupees-gigognes.jpg" data-background-size="contain"
+        data-background-position="center">
+        <h2>3. Communication entre composants</h2>
+        <p>Il s'agit d'un mécanisme par lequel les props sont passées de parent à enfant, souvent de manière inutile.
+        </p>
+      </section>
+      <section data-background-image="/src/assets/images/props-drilling.png" data-background-size="contain"
+        data-background-position="center">
+        </p>
+      </section>
+      
+        <section>
+          <h2>3. Communication entre composants</h2>
+          <video data-autoplay src="/src/assets/videos/matrio.mkv"></video>
+        </section>
+
+         
+
+
+        <!-- <section data-background-image="/src/assets/images/props-drilling-no.png" data-background-size="contain"
+          data-background-position="center">
+          </p>
+        </section>
+        <section data-background-image="/src/assets/images/props-drilling-no-context.png" data-background-size="contain"
+          data-background-position="center">
+          </p>
+        </section> -->
+
+      <section data-markdown="/src/assets/md/partie_4-slide.md">
+      </section>
+<section>
+          <h2>4. Context API</h2>
+          <p>Les alternatives aux props drilling.</p>
+          <!-- <video data-autoplay src="/src/assets/videos/matrio.mkv"></video> -->
+          <img src="/src/assets/images/states.png" width="80%" alt="Logo React">
+        </section>
+
+        <section data-markdown="/src/assets/md/partie_5-slide.md">
+      </section>
+<section>
+  <h2>useEffect — fetch d'une API</h2>
+
+  <div style="display: flex; gap: 2rem; align-items: flex-start;">
+
+    <pre style="flex: 1; font-size: 0.8rem;"><code class="language-jsx" data-trim data-noescape>
+import { useState, useEffect } from 'react'
+
+function Utilisateurs() {
+
+  const [users, setUsers]     = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(res  => res.json())
+      .then(data => {
+        setUsers(data)
+        setLoading(false)
+      })
+
+  }, [])
+
+  if (loading) return &lt;p&gt;Chargement...&lt;/p&gt;
+
+  return (
+    &lt;ul&gt;
+      {users.map(user => (
+        &lt;li key={user.id}&gt;{user.name}&lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  )
+}
+    </code></pre>
+
+    <div style="flex: 0 0 220px; border: 1px solid #555;
+                border-radius: 6px; padding: 1rem;
+                font-size: 0.4em; background: #1a1a2e;">
+    
+      <ul style="margin: 0; padding-left: 1.2rem; color: #e0e0e0; line-height: 1.8;">
+        <li>Leanne Graham</li>
+        <li>Ervin Howell</li>
+        <li>Clementine Bauch</li>
+        <li>Patricia Lebsack</li>
+        <li>Chelsey Dietrich</li>
+        <li style="color: #888;">...</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+        <!-- LIFE CYCLE USE EFFECT -->
+        <section style="font-size: 0.5em; width: 80%; text-align: left; margin: 0 auto;">
+          <h1 class="fragment">5. Le cycle de vie d'un composant React</h1>
+          <div class="fragment" style="margin-bottom: 2rem;">
+            <h4>PHASE 1: MOUNTING</h4>
+            <ul>
+              <li>lecture 1 : <code>render()</code> <span style="color: #1D9E75;">✓</span></li>
+              <li>lecture 2 : <code>componentDidMount()</code> / <code>useEffect()</code> <span
+                  style="color: #1D9E75;font-size:2.2rem">✓</span></li>
+            </ul>
+          </div>
+          <div class="fragment" style="margin-bottom: 2rem;">
+            <h4 style="display: flex; align-items: center; gap: 1rem;">
+              PHASE 2: UPDATING
+              <span
+                style="display: inline-block; width: 40px; height: 40px; border: 8px solid #4f8ef7; border-top-color: #2e5ab8; border-radius: 50%; animation: spin 1.5s linear infinite;"></span>
+            </h4>
+            <ul>
+              <li>lecture 1 : <code>render()</code> (re-render) <span style="color: #1D9E75; font-size:2.2rem">✓</span>
+              </li>
+              <li>lecture 2 : <code>componentDidUpdate()</code> / <code>useEffect()</code> <span
+                  style="color: #1D9E75; font-size:2.2rem">✓</span></li>
+            </ul>
+          </div>
+          <div class="fragment">
+            <h4>PHASE 3: UNMOUNTING</h4>
+            <ul>
+              <li>lecture 1 : <span style="color: #FF0000;">✖</span></li>
+              <li>lecture 2 : <code>componentWillUnmount()</code> / <code>useEffect()</code> <span
+                  style="color: #1D9E75; font-size:2.2rem">✓</span></li>
+            </ul>
+          </div>
+        </section>
+        <!-- <section> -->
+        <!-- <h2>Avec seulement JavaScript: le DOM direct</h2> -->
+        <!-- <div style="display: flex; gap: 2rem; justify-content: center; align-items: center; flex-wrap: wrap;"> -->
+        <!-- <img src="/src/assets/images/js_dom_direct.svg" alt="DOM Direct" width="650"> -->
+        <!-- <img src="/src/assets/images/v-dom.svg" alt="Virtual DOM" width="450"> -->
+        <!-- </div> -->
+        <!-- </section> -->
+        <!-- <section> -->
+        <!-- <h2>Avec React: le DOM virtuel</h2> -->
+        <!-- <div style="display: flex; gap: 2rem; justify-content: center; align-items: center; flex-wrap: wrap;"> -->
+        <!-- <img src="/src/assets/images/js_dom_direct.svg" alt="DOM Direct" width="650"> -->
+        <!-- <img src="/src/assets/images/v-dom.svg" alt="Virtual DOM" width="750"> -->
+        <!-- </div> -->
+        <!-- </section> -->
+        <!-- <section>
         <h2>Un composant React, c'est quoi ?</h2>
 
         <pre><code>
@@ -550,17 +632,12 @@ function Spiderman({nom, identité, ennemi}) {
       </code></pre>
 
       </section> -->
-      <section>
-        <section data-markdown="/src/assets/md/INTRODUCTION_JSX.md">
-        </section>
-
-
-      </section>
 
 
 
 
-      <!-- <section>
+
+        <!-- <section>
         <h2>Exemple du compteur</h2>
         <pre><code class="language-jsx" data-trim data-line-numbers>
 function Compteur() {
@@ -579,68 +656,42 @@ function Compteur() {
         </code></pre>
       </section> -->
 
-      <section class="counter-demo">
-        <h1>En action</h1>
-        <div class="counter-display" id="count">0</div>
-        <div class="counter-buttons">
-          <button id="decrement">−</button>
-          <button id="increment">+</button>
-        </div>
+        <section class="counter-demo">
+          <h1>En action</h1>
+          <div class="counter-display" id="count">0</div>
+          <div class="counter-buttons">
+            <button id="decrement">−</button>
+            <button id="increment">+</button>
+          </div>
 
-        <script>
-          const decrementButton = document.getElementById('decrement');
-          const incrementButton = document.getElementById('increment');
-          const countSpan = document.getElementById('count');
+          <script>
+            const decrementButton = document.getElementById('decrement');
+            const incrementButton = document.getElementById('increment');
+            const countSpan = document.getElementById('count');
 
-          let count = 0;
+            let count = 0;
 
-          decrementButton.addEventListener('click', () => {
-            count--;
-            countSpan.innerText = count;
-          });
+            decrementButton.addEventListener('click', () => {
+              count--;
+              countSpan.innerText = count;
+            });
 
-          incrementButton.addEventListener('click', () => {
-            count++;
-            countSpan.innerText = count;
-          });
-        </script>
-      </section>
-      <!-- <section>
+            incrementButton.addEventListener('click', () => {
+              count++;
+              countSpan.innerText = count;
+            });
+          </script>
+        </section>
+        <!-- <section>
         <h1>Le DOM virtuel, c'est quoi ?</h1>
         <p>Un arbre d'objets JavaScript qui représente la structure de l'interface utilisateur.</p>
         <p>Il permet à React de faire du diffing et de mettre à jour efficacement le DOM réel.</p>
         
       </section> -->
-      <section data-background-image="/src/assets/images/poupees-gigognes.jpg" data-background-size="contain"
-        data-background-position="center">
-        <h1>Le props drillings, c'est comme une poupée russe</h1>
-        <p>Il s'agit d'un mécanisme par lequel les props sont passées de parent à enfant, souvent de manière inutile.
-        </p>
-      </section>
-<section data-background-image="/src/assets/images/props-drilling.png" data-background-size="contain"
-        data-background-position="center">
-        </p>
-      </section>
-      <section data-background-image="/src/assets/images/props-drilling-no.png" data-background-size="contain"
-        data-background-position="center">
-        </p>
-      </section>
-      <section data-background-image="/src/assets/images/props-drilling-no-context.png" data-background-size="contain"
-        data-background-position="center">
-        </p>
-      </section>
 
 
 
-
-
-
-
-
-
-
-
-      <!-- <section>
+        <!-- <section>
         
                 <h1>Bienvenue au spa</h1>
 
@@ -648,7 +699,7 @@ function Compteur() {
 <section><iframe src="/src/assets/html/demo-2-composant.html" width="100%" height="500" frameborder="0"></iframe></section>
 <section><iframe src="/src/assets/html/demo-3-resultat.html"  width="100%" height="600" frameborder="0"></iframe></section> -->
 
-      <!-- <section>
+        <!-- <section>
   <h2>Démo live</h2>
   <iframe
     src="/src/assets/html/, demo-dashboard.html"
@@ -660,7 +711,7 @@ function Compteur() {
 
 
 
-      <!-- <section data-auto-animate>
+        <!-- <section data-auto-animate>
       <h1>Implicit</h1>
     </section>
     <section data-auto-animate>
