@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cycle de vie d'un composant</title>
+
+<style>
+  :root {
+    --green:  #22c55e;
+    --blue:   #38bdf8;
+    --orange: #fb923c;
+    --red:    #f87171;
+    --dim:    rgba(255,255,255,0.12);
+    --bg:     #0d1117;
+  }
+
+  .reveal { font-family: 'Syne', sans-serif; background: var(--bg); }
+  .reveal .slides section { text-align: left; }
+
+  /* ── TITLE SLIDE ── */
+  .title-slide { text-align: center !important; }
+  .title-slide h1 {
+    font-size: 2.2rem; font-weight: 800; letter-spacing: .08em;
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #f472b6 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: .4em;
+  }
+  .title-slide .subtitle {
+    font-size: 1rem; color: rgba(255,255,255,.45); font-family: 'JetBrains Mono', monospace;
+    letter-spacing: .15em;
+  }
+
+  /* ── SLIDE LAYOUT ── */
+  .lifecycle-slide h2 {
+    font-size: 1rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(255,255,255,.35); margin: 0 0 1.6rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── PHASE CARD ── */
+  .phase-card {
+    border: none;
+    border-radius: 12px;
+    padding: 1.1rem 1.4rem;
+    margin-bottom: 1rem;
+    background: rgba(255,255,255,.03);
+    transition: background .35s, box-shadow .35s;
+  }
+  .phase-card.active {
+    background: rgba(56,189,248,.06);
+    box-shadow: 0 0 24px rgba(56,189,248,.15);
+  }
+  .phase-card.done {
+    background: rgba(34,197,94,.05);
+    box-shadow: 0 0 18px rgba(34,197,94,.12);
+  }
+
+  .phase-header {
+    display: flex; align-items: center; gap: .7rem; margin-bottom: .7rem;
+  }
+  .phase-badge {
+    font-family: 'JetBrains Mono', monospace; font-size: .62rem; font-weight: 700;
+    letter-spacing: .15em; text-transform: uppercase;
+    padding: .2em .65em; border-radius: 4px; flex-shrink: 0;
+  }
+  .badge-mount  { background: rgba(56,189,248,.18); color: #38bdf8; border: 1px solid rgba(56,189,248,.3); }
+  .badge-update { background: rgba(251,146,60,.18);  color: #fb923c; border: 1px solid rgba(251,146,60,.3); }
+  .badge-unmount{ background: rgba(248,113,113,.18); color: #f87171; border: 1px solid rgba(248,113,113,.3); }
+
+  .phase-title {
+    font-size: 1.05rem; font-weight: 700; color: #fff; letter-spacing: .04em;
+  }
+  .phase-check {
+    margin-left: auto; font-size: 1.2rem; opacity: 0;
+    transition: opacity .4s, transform .4s;
+    transform: scale(.5);
+    color: var(--green);
+  }
+  .phase-card.done .phase-check { opacity: 1; transform: scale(1); }
+
+  /* ── STEPS ── */
+  .steps { display: flex; flex-direction: column; gap: .45rem; }
+  .step {
+    display: flex; align-items: center; gap: .8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    padding: .42rem .7rem;
+    border-radius: 7px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.07);
+    transition: background .3s, border-color .3s, color .3s;
+    color: rgba(255,255,255,.4);
+  }
+  .step.step-active {
+    background: rgba(56,189,248,.1);
+    border-color: rgba(56,189,248,.35);
+    color: #fff;
+  }
+  .step.step-done {
+    background: rgba(34,197,94,.07);
+    border-color: rgba(34,197,94,.3);
+    color: rgba(255,255,255,.75);
+  }
+  .step-icon {
+    width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .65rem; font-weight: 700;
+    border: 1.5px solid rgba(255,255,255,.15);
+    color: rgba(255,255,255,.2);
+    transition: background .3s, border-color .3s, color .3s;
+  }
+  .step.step-active .step-icon {
+    background: rgba(56,189,248,.25); border-color: #38bdf8; color: #38bdf8;
+  }
+  .step.step-done .step-icon {
+    background: rgba(34,197,94,.2); border-color: var(--green); color: var(--green);
+  }
+  .step-label { font-size: .6rem; color: rgba(255,255,255,.3); min-width: 4.2rem; flex-shrink: 0; }
+  .step.step-active .step-label { color: rgba(255,255,255,.55); }
+  .step.step-done  .step-label { color: rgba(255,255,255,.45); }
+
+  code.fn {
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(255,255,255,.07);
+    border-radius: 3px; padding: .05em .3em;
+    font-size: .95em;
+  }
+  .step-name { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+  .slash { color: rgba(255,255,255,.2); }
+
+  /* ── PROGRESS BAR ── */
+  .progress-area {
+    display: flex; align-items: center; gap: .6rem; margin-top: 1rem;
+    font-family: 'JetBrains Mono', monospace; font-size: .6rem; color: rgba(255,255,255,.25);
+  }
+  .progress-bar {
+    flex: 1; height: 3px; background: rgba(255,255,255,.08); border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #38bdf8, #22c55e);
+    border-radius: 3px;
+    transition: width .5s ease;
+  }
+
+  /* ── CONNECTOR ARROWS ── */
+  .phase-connector {
+    text-align: center; font-size: .85rem; color: rgba(255,255,255,.12);
+    margin: -.3rem 0; letter-spacing: .1em;
+    transition: color .3s;
+  }
+  .phase-connector.conn-active { color: rgba(255,255,255,.4); }
+
+  /* ── SPIN ICON ── */
+  .spin-icon {
+    display: inline-flex; align-items: center; margin-left: .5rem;
+  }
+  .spin-icon svg {
+    animation: spin-cw 1.4s linear infinite;
+  }
+  @keyframes spin-cw {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* ── REVEAL overrides ── */
+  .reveal .slides { padding: 0; }
+  .reveal .slides > section { padding: 2rem 2.5rem; }
+</style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+
+
+    <!-- MAIN SLIDE — fragments drive the animation -->
+    <div class="lifecycle-slide">
+      <h2>Cycle de vie d'un composant</h2>
+
+      <!-- ════ PHASE 1 ════ -->
+      <div class="phase-card" id="card-mount">
+        <div class="phase-header">
+          <span class="phase-badge badge-mount">Phase 1</span>
+          <span class="phase-title">Mounting</span>
+          <span class="phase-check">✔</span>
+        </div>
+        <div class="steps">
+          <div class="step" id="s1">
+            <div class="step-icon" id="si1">1</div>
+            <span class="step-label">Lecture 1</span>
+            <span class="step-name"><code class="fn">render()</code></span>
+          </div>
+          <div class="step" id="s2">
+            <div class="step-icon" id="si2">2</div>
+            <span class="step-label">Lecture 2</span>
+            <span class="step-name">
+              <code class="fn">componentDidMount()</code>
+              <span class="slash">/</span>
+              <code class="fn">useEffect()</code>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-connector" id="conn1">↓</div>
+
+      <!-- ════ PHASE 2 ════ -->
+      <div class="phase-card" id="card-update">
+        <div class="phase-header">
+          <span class="phase-badge badge-update">Phase 2</span>
+          <span class="phase-title">Updating <span class="spin-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 12a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8c2.22 0 4.22.9 5.68 2.35L20 4" stroke="#fb923c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="20 4 20 9 15 9" stroke="#fb923c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+          <span class="phase-check">✔</span>
+        </div>
+        <div class="steps">
+          <div class="step" id="s3">
+            <div class="step-icon" id="si3">1</div>
+            <span class="step-label">Lecture 1</span>
+            <span class="step-name"><code class="fn">render()</code> <span style="font-size:.6rem;color:rgba(255,255,255,.3)">(re-render)</span></span>
+          </div>
+          <div class="step" id="s4">
+            <div class="step-icon" id="si4">2</div>
+            <span class="step-label">Lecture 2</span>
+            <span class="step-name">
+              <code class="fn">componentDidUpdate()</code>
+              <span class="slash">/</span>
+              <code class="fn">useEffect()</code>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-connector" id="conn2">↓</div>
+
+      <!-- ════ PHASE 3 ════ -->
+      <div class="phase-card" id="card-unmount">
+        <div class="phase-header">
+          <span class="phase-badge badge-unmount">Phase 3</span>
+          <span class="phase-title">Unmounting</span>
+          <span class="phase-check">✔</span>
+        </div>
+        <div class="steps">
+          <div class="step" id="s5">
+            <div class="step-icon" id="si5">✖</div>
+            <span class="step-label">Lecture 1</span>
+            <span class="step-name" style="color:rgba(248,113,113,.5)">— aucun render</span>
+          </div>
+          <div class="step" id="s6">
+            <div class="step-icon" id="si6">2</div>
+            <span class="step-label">Lecture 2</span>
+            <span class="step-name">
+              <code class="fn">componentWillUnmount()</code>
+              <span class="slash">/</span>
+              <code class="fn">useEffect()</code>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-area">
+        <span id="prog-label">0 / 6</span>
+        <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+        <span>→</span>
+      </div>
+
+      <!--
+        Hidden fragments — each advances the state machine by one step.
+        They are invisible; all visual changes are done via JS below.
+      -->
+      <span class="fragment" data-step="1"></span>
+      <span class="fragment" data-step="2"></span>
+      <span class="fragment" data-step="3"></span>
+      <span class="fragment" data-step="4"></span>
+      <span class="fragment" data-step="5"></span>
+      <span class="fragment" data-step="6"></span>
+    </section>
+
+  </div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  transition: 'fade',
+  transitionSpeed: 'fast',
+  controls: true,
+  progress: false,
+  center: false,
+  width: 900,
+  height: 620,
+});
+
+/* ─── State machine ─── */
+const STEPS = [
+  { stepId: 's1', card: 'card-mount',   conn: null,    phase: null        },
+  { stepId: 's2', card: 'card-mount',   conn: 'conn1', phase: 'card-mount'},
+  { stepId: 's3', card: 'card-update',  conn: null,    phase: null        },
+  { stepId: 's4', card: 'card-update',  conn: 'conn2', phase: 'card-update'},
+  { stepId: 's5', card: 'card-unmount', conn: null,    phase: null        },
+  { stepId: 's6', card: 'card-unmount', conn: null,    phase: 'card-unmount'},
+];
+
+function applyState(currentStep) {
+  // currentStep = 0 means nothing shown yet; 1–6 = fragments shown
+  STEPS.forEach((def, idx) => {
+    const step   = idx + 1; // 1-indexed
+    const el     = document.getElementById(def.stepId);
+    const card   = document.getElementById(def.card);
+
+    if (!el) return;
+
+    // Determine step state
+    if (step < currentStep) {
+      el.className = 'step step-done';
+    } else if (step === currentStep) {
+      el.className = 'step step-active';
+    } else {
+      el.className = 'step';
+    }
+
+    // Card state: active if any of its steps is current, done if phase complete
+    if (card) {
+      const cardSteps = STEPS.filter(s => s.card === def.card).map((s,i,arr) => STEPS.indexOf(s)+1);
+      const min = Math.min(...cardSteps);
+      const max = Math.max(...cardSteps);
+      if (currentStep > max) {
+        card.className = 'phase-card done';
+      } else if (currentStep >= min) {
+        card.className = 'phase-card active';
+      } else {
+        card.className = 'phase-card';
+      }
+    }
+
+    // Connector
+    if (def.conn) {
+      const conn = document.getElementById(def.conn);
+      if (conn) conn.className = step <= currentStep ? 'phase-connector conn-active' : 'phase-connector';
+    }
+  });
+
+  // Progress
+  const pct = Math.round((currentStep / 6) * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `${currentStep} / 6`;
+}
+
+// Listen to fragment events
+Reveal.on('fragmentshown', e => {
+  const step = parseInt(e.fragment.dataset.step || '0');
+  if (step) applyState(step);
+});
+Reveal.on('fragmenthidden', e => {
+  const step = parseInt(e.fragment.dataset.step || '0');
+  if (step) applyState(step - 1);
+});
+
+// Init
+applyState(0);
+</script>
+</body>
+</html>

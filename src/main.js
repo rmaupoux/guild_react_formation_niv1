@@ -9,6 +9,7 @@ Reveal.initialize({
   progress: true,
   center: true,
   hash: true,
+  pdfSeparateFragments: false,
   plugins: [
     window.RevealHighlight || {},
     window.RevealMarkdown || {},
