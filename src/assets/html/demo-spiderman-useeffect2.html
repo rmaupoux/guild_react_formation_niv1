@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spiderman useEffect - Missions & Timer</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      color: white;
+      margin-bottom: 2rem;
+      font-size: 2em;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .demo-section {
+      display: flex;
+      gap: 2rem;
+      align-items: stretch;
+      height: 600px;
+    }
+
+    .code-panel {
+      flex: 1.2;
+      overflow: auto;
+    }
+
+    .display-panel {
+      flex: 0.8;
+      overflow: auto;
+    }
+
+    .code-panel pre {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1e2139 0%, #2d3561 100%);
+      border: 2px solid #667eea;
+      border-radius: 16px;
+      padding: 1.5rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      margin: 0;
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+
+    .code-panel code {
+      font-family: 'Courier New', monospace;
+      color: #fbbf24;
+    }
+
+    .display-container {
+      background: linear-gradient(135deg, #1e2139 0%, #2d3561 100%);
+      border: 2px solid #667eea;
+      border-radius: 16px;
+      padding: 2rem;
+      color: #e2e8f0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .hero-image {
+      text-align: center;
+      font-size: 4em;
+      filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.6));
+    }
+
+    .timer {
+      background: rgba(79, 142, 247, 0.2);
+      border: 2px solid #667eea;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .timer-label {
+      color: #94a3b8;
+      font-size: 0.9em;
+      margin-bottom: 0.5rem;
+    }
+
+    .timer-value {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #4ade80;
+      font-family: 'Courier New', monospace;
+    }
+
+    .tasks-section h3 {
+      color: #60a5fa;
+      font-size: 1.1em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tasks-list {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 1rem;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .task-item {
+      background: rgba(79, 142, 247, 0.1);
+      border-left: 3px solid #667eea;
+      padding: 0.8rem;
+      margin-bottom: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.95em;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .task-icon {
+      font-size: 1.2em;
+    }
+
+    .task-text {
+      flex: 1;
+    }
+
+    .comment {
+      color: #6b7280;
+    }
+
+    .tag {
+      color: #60a5fa;
+    }
+
+    .prop {
+      color: #fca5a5;
+    }
+
+    .string {
+      color: #4ade80;
+    }
+
+    .status {
+      text-align: center;
+      font-size: 0.9em;
+      color: #94a3b8;
+      padding: 0.5rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- <h2 class="section-title">⏰ useEffect avec Timer & Missions</h2> -->
+
+    <div class="demo-section" style="width: 70%; margin-left:200px;">
+
+      <!-- DÉMO À DROITE -->
+      <div class="display-panel">
+        <div class="display-container">
+          <div class="hero-image">🕷️</div>
+
+         
+
+          <div class="tasks-section">
+            <h3>📋 Missions du jour:</h3>
+            <div class="tasks-list" id="tasksList">
+              <div class="status">Chargement des missions...</div>
+            </div>
+          </div>
+           <div class="timer">
+            <div class="timer-label">⏰ MISSION TIMER</div>
+            <div class="timer-value" id="timerDisplay">0s</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let time = 0;
+    const timerDisplay = document.getElementById('timerDisplay');
+    const tasksList = document.getElementById('tasksList');
+
+    // Simuler le useEffect avec dépendances []
+    // 1️⃣ Charger les missions avec fetch (mount)
+    fetch('/src/assets/json/missions.json')
+      .then(res => res.json())
+      .then(data => {
+        tasksList.innerHTML = '';
+        data.missions.forEach(mission => {
+          const taskDiv = document.createElement('div');
+          taskDiv.className = 'task-item';
+          taskDiv.innerHTML = `
+            <span class="task-icon">${mission.icon}</span>
+            <span class="task-text">${mission.text}</span>
+          `;
+          tasksList.appendChild(taskDiv);
+        });
+      })
+      .catch(err => {
+        tasksList.innerHTML = '<div class="status">Erreur : impossible de charger les missions</div>';
+      });
+
+    // 2️⃣ Timer avec cleanup (like useEffect return)
+    const interval = setInterval(() => {
+      time++;
+      timerDisplay.textContent = time + 's';
+    }, 1000);
+
+    // Cleanup quand la page se ferme (simule le return du useEffect)
+    window.addEventListener('beforeunload', () => {
+      clearInterval(interval);
+    });
+  </script>
+</body>
+</html>

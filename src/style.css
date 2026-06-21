@@ -12,6 +12,10 @@ p{
     font-size: .5em !important;
 }
 
+hr{
+    margin: .2rem 0 .5rem 0;
+}
+
 .header-logo{
     position: fixed;
     z-index: 1000;

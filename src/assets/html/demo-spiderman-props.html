@@ -23,97 +23,105 @@
       margin: 0 auto;
     }
 
-    h1 {
-      text-align: center;
+    .section-title {
       color: white;
-      margin-bottom: 3rem;
-      font-size: 2.5em;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .section {
-      margin-bottom: 4rem;
-    }
-
-    .section h2 {
-      color: white;
-      margin-bottom: 2rem;
-      font-size: 1.8em;
+      margin-bottom: 1.5rem;
+      font-size: 1.4em;
       text-align: center;
     }
 
-    .heroes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    .demo-section {
+      display: flex;
       gap: 2rem;
-      margin-bottom: 2rem;
+      align-items: stretch;
+      height: 500px;
+      margin-bottom: 3rem;
     }
 
-    .spiderman-card {
+    .code-panel {
+      flex: 2;
+      overflow: auto;
+    }
+
+    .demo-panel {
+      flex: 1;
+      overflow: auto;
+    }
+
+    .code-panel pre {
+      width: 100%;
+      font-size: 1.1em;
+      height: 100%;
       background: linear-gradient(135deg, #1e2139 0%, #2d3561 100%);
       border: 2px solid #667eea;
       border-radius: 16px;
       padding: 1.5rem;
       color: #e2e8f0;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow-x: auto;
+      margin: 0;
     }
 
-    .spiderman-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 30px 50px rgba(102, 126, 234, 0.4);
+    .code-panel code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.95em;
+      line-height: 1.6;
+      color: #fbbf24;
+    }
+
+    .demo-panel iframe {
+      border: 2px solid #667eea;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .heroes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      padding: 1rem;
+      overflow-y: auto;
+      height: 100%;
+    }
+
+    .spiderman-card {
+      background: linear-gradient(135deg, #1e2139 0%, #2d3561 100%);
+      border: 2px solid #667eea;
+      border-radius: 12px;
+      padding: 1.2rem;
+      color: #e2e8f0;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
 
     .spiderman-card h3 {
-      font-size: 1.5em;
-      margin-bottom: 0.8rem;
+      font-size: 1.2em;
+      margin-bottom: 0.6rem;
       color: #60a5fa;
     }
 
     .spiderman-card p {
-      margin-bottom: 0.6rem;
-      font-size: 0.95em;
-      line-height: 1.5;
+      margin-bottom: 0.4rem;
+      font-size: 0.9em;
+      line-height: 1.4;
     }
 
     .label {
       color: #94a3b8;
       font-weight: 600;
       display: inline-block;
-      width: 100px;
+      width: 80px;
+      font-size: 0.85em;
     }
 
     .value {
       color: #4ade80;
       font-weight: 600;
+      font-size: 0.85em;
     }
 
-    .code-section {
-      background: linear-gradient(135deg, #1e2139 0%, #2d3561 100%);
-      border: 2px solid #667eea;
-      border-radius: 16px;
-      padding: 2rem;
-      color: #e2e8f0;
-    }
-
-    .code-section h3 {
-      color: #60a5fa;
-      margin-bottom: 1.5rem;
-      font-size: 1.3em;
-    }
-
-    .code-section pre {
-      background: rgba(0, 0, 0, 0.3);
-      padding: 1.5rem;
-      border-radius: 8px;
-      overflow-x: auto;
-      font-size: 0.95em;
-      line-height: 1.6;
-    }
-
-    .code-section code {
-      color: #fbbf24;
-      font-family: 'Courier New', monospace;
+    .divider {
+      border: none;
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+      margin: 2rem 0;
     }
 
     .comment {
@@ -135,40 +143,58 @@
 </head>
 <body>
   <div class="container">
-    <h1>🕷️ Props en Action</h1>
-
-    <!-- SECTION 1: LES CARDS -->
-    <div class="section">
-      <h2>Les différentes instances du composant</h2>
-      <div class="heroes-grid" id="heroesContainer"></div>
-    </div>
-
-    <!-- SECTION 2: LE CODE -->
-    <div class="section">
-      <div class="code-section">
-        <h3>💻 Comment les utiliser en React</h3>
-        <pre><code><span class="comment">// Importer le composant</span>
-<span class="tag">import</span> Spiderman <span class="tag">from</span> <span class="string">'./Spiderman'</span>;
-
-<span class="comment">// Utiliser le composant avec différentes props</span>
+    <!-- SECTION 1: SANS PROPS -->
+    <h2 class="section-title">1️⃣ Sans Props (répétition)</h2>
+    <div class="demo-section">
+      <!-- CODE À GAUCHE -->
+      <div class="code-panel">
+        <pre><code class="language-jsx"><span class="comment">// Composant unique</span>
 <span class="tag">function</span> App() {
   <span class="tag">return</span> (
     &lt;&gt;
-      &lt;<span class="tag">Spiderman</span>
+      &lt;Spiderman /&gt;
+      &lt;Spiderman /&gt;
+      &lt;Spiderman /&gt;
+    &lt;/&gt;
+  );
+}
+
+<span class="comment">// Problème:</span>
+<span class="comment">// Tous les Spiderman</span>
+<span class="comment">// sont identiques!</span>
+        </code></pre>
+      </div>
+
+      <!-- DÉMO À DROITE -->
+      <div class="demo-panel">
+        <div class="heroes-grid" id="heroesContainerNoProps"></div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- SECTION 2: AVEC PROPS -->
+    <h2 class="section-title">2️⃣ Avec Props (personnalisation)</h2>
+    <div class="demo-section">
+      <!-- CODE À GAUCHE -->
+      <div class="code-panel">
+        <pre><code class="language-jsx" data-line-numbers="5-14"><span class="comment">// Composant avec props</span>
+<span class="tag">function</span> App() {
+  <span class="tag">return</span> (
+    &lt;&gt;
+      &lt;Spiderman
         <span class="prop">nom</span>=<span class="string">"Spider-Man"</span>
-        <span class="prop">identité</span>=<span class="string">"Peter Parker"</span>
+        <span class="prop">identité</span>=<span class="string">"Peter"</span>
         <span class="prop">ennemi</span>=<span class="string">"Venom"</span>
       /&gt;
-
-      &lt;<span class="tag">Spiderman</span>
+      &lt;Spiderman
         <span class="prop">nom</span>=<span class="string">"Spider-Gwen"</span>
-        <span class="prop">identité</span>=<span class="string">"Gwen Stacy"</span>
-        <span class="prop">ennemi</span>=<span class="string">"Green Goblin"</span>
+        <span class="prop">identité</span>=<span class="string">"Gwen"</span>
+        <span class="prop">ennemi</span>=<span class="string">"Goblin"</span>
       /&gt;
-
-      &lt;<span class="tag">Spiderman</span>
-        <span class="prop">nom</span>=<span class="string">"Miles Morales"</span>
-        <span class="prop">identité</span>=<span class="string">"Miles Morales"</span>
+      &lt;Spiderman
+        <span class="prop">nom</span>=<span class="string">"Miles"</span>
+        <span class="prop">identité</span>=<span class="string">"Miles"</span>
         <span class="prop">ennemi</span>=<span class="string">"Kingpin"</span>
       /&gt;
     &lt;/&gt;
@@ -176,11 +202,22 @@
 }
         </code></pre>
       </div>
+
+      <!-- DÉMO À DROITE -->
+      <div class="demo-panel">
+        <div class="heroes-grid" id="heroesContainerWithProps"></div>
+      </div>
     </div>
   </div>
 
   <script>
-    const heroes = [
+    const heroesNoProps = [
+      { nom: "Spiderman", identité: "??", ennemi: "???" },
+      { nom: "Spiderman", identité: "??", ennemi: "???" },
+      { nom: "Spiderman", identité: "??", ennemi: "???" }
+    ];
+
+    const heroesWithProps = [
       {
         nom: "Spider-Man",
         identité: "Peter Parker",
@@ -209,9 +246,15 @@
       return card;
     }
 
-    const container = document.getElementById('heroesContainer');
-    heroes.forEach(hero => {
-      container.appendChild(createSpidermanCard(hero));
+    // Remplir les grilles
+    const containerNoProps = document.getElementById('heroesContainerNoProps');
+    heroesNoProps.forEach(hero => {
+      containerNoProps.appendChild(createSpidermanCard(hero));
+    });
+
+    const containerWithProps = document.getElementById('heroesContainerWithProps');
+    heroesWithProps.forEach(hero => {
+      containerWithProps.appendChild(createSpidermanCard(hero));
     });
   </script>
 </body>

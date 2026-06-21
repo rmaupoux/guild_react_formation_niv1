@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Composant Spiderman - Démo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* padding: 2rem; */
+    }
+
+    #heroesContainer {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .spiderman-card {
+      background: linear-gradient(135deg, #1e2139 0%, #2d3561 100%);
+      border: 2px solid #667eea;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      color: #e2e8f0;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .spiderman-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 50px rgba(102, 126, 234, 0.4);
+    }
+
+    .spiderman-card h3 {
+      font-size: 1.8em;
+      margin-bottom: 1rem;
+      color: #60a5fa;
+    }
+
+    .spiderman-card p {
+      margin-bottom: 0.8rem;
+      font-size: 1.05em;
+      line-height: 1.6;
+    }
+
+    .label {
+      color: #94a3b8;
+      font-weight: 600;
+      display: inline-block;
+      width: 120px;
+    }
+
+    .value {
+      color: #4ade80;
+      font-weight: 600;
+    }
+
+  
+
+  
+    
+
+  
+
+    .victory {
+      animation: pulse 0.6s ease;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div style="display: flex; flex-direction: column;">
+  <div class="spiderman-card">
+   <h3>🕷️ Spider-man</h3>
+        <p><span class="label">Identité :</span> <span class="value">Peter Parker</span></p>
+        <p><span class="label">Affronte :</span> <span class="value">🦹 Kingpin</span></p>
+
+
+  </div>
+   <div class="spiderman-card">
+   <h3>🕷️ Spider-man</h3>
+        <p><span class="label">Identité :</span> <span class="value">Peter Parker</span></p>
+        <p><span class="label">Affronte :</span> <span class="value">🦹 Kingpin</span></p>
+
+
+  </div>
+  <div class="spiderman-card">
+   <h3>🕷️ Spider-man</h3>
+        <p><span class="label">Identité :</span> <span class="value">Peter Parker</span></p>
+        <p><span class="label">Affronte :</span> <span class="value">🦹 Kingpin</span></p>
+
+
+  </div>
+  </div> 
+
+  
+</body>
+</html>

@@ -72,46 +72,48 @@
       <section class="slide-sommaire">
         <h2>Sommaire</h2>
         <div class="fragment">
-    <h3>1. Fondamentaux de React</h3>
-    <ul>
-        <li>DOM virtuel</li>
-        <li>Pourquoi React ?</li>
-    </ul>
-</div>
+          <h3>1. Fondamentaux de React</h3>
+          <ul>
+            <li>DOM virtuel</li>
+            <li>Pourquoi React ?</li>
+          </ul>
+          <hr>
+        </div>
 
-<div class="fragment">
-    <h3>2. Composants</h3>
-    <ul>
-        <li>Structure d'un composant</li>
-        <li><code>useState</code> — exemple : spiderman</li>
-        <li>JSX</li>
-        <li>Props</li>
-    </ul>
-</div>
+        <div class="fragment">
+          <h3>2. Composants</h3>
+          <ul>
+            <li>Structure d'un composant</li>
+            <li><code>useState</code>, <code>JSX</code> ,<code>props</code> </li>
+            <li>— exemple : spiderman</li>
+          </ul>
+          <hr>
+        </div>
+        <div class="fragment">
+          <h3>3. Communication entre composants</h3>
+          <ul>
+            <li><code>useContext</code></li>
+            <li>Props drilling — exemple : poupées matrioshka</li>
+          </ul>
+          <hr>
+        </div>
 
-<div class="fragment">
-    <h3>3. Communication entre composants</h3>
-    <ul>
-        <li><code>useContext</code></li>
-        <li>Props drilling — exemple : poupées matrioshka</li>
-    </ul>
-</div>
+        <div class="fragment">
+          <h3>4. Context API</h3>
+          <ul>
+            <li><code>useContext</code></li>
+            <li>Alternative au props drilling</li>
+          </ul>
+          <hr>
+        </div>
 
-<div class="fragment">
-    <h3>4. Context API</h3>
-    <ul>
-        <li><code>useContext</code></li>
-        <li>Alternative au props drilling</li>
-    </ul>
-</div>
-
-<div class="fragment">
-    <h3>5. Cycle de vie &amp; re-rendu</h3>
-    <ul>
-        <li><code>useEffect</code> — dépendances &amp; cleanup</li>
-        <li>Déclencheurs de re-rendu</li>
-    </ul>
-</div>
+        <div class="fragment">
+          <h3>5. Cycle de vie &amp; re-rendu</h3>
+          <ul>
+            <li><code>useEffect</code> — dépendances &amp; cleanup</li>
+            <li>Déclencheurs de re-rendu</li>
+          </ul>
+        </div>
       </section>
 
 
@@ -326,13 +328,13 @@
           ];
           new Chart(document.getElementById('fwChart'), {
             type: 'line',
-            data: {labels, datasets},
+            data: { labels, datasets },
             options: {
               responsive: true,
               maintainAspectRatio: false,
-              interaction: {mode: 'index', intersect: false},
+              interaction: { mode: 'index', intersect: false },
               plugins: {
-                legend: {display: false},
+                legend: { display: false },
                 tooltip: {
                   callbacks: {
                     label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}%`
@@ -341,14 +343,14 @@
               },
               scales: {
                 x: {
-                  grid: {color: 'rgba(128,128,128,0.1)'},
-                  ticks: {font: {size: 12}, color: '#888', autoSkip: false}
+                  grid: { color: 'rgba(128,128,128,0.1)' },
+                  ticks: { font: { size: 12 }, color: '#888', autoSkip: false }
                 },
                 y: {
                   min: 0, max: 100,
-                  grid: {color: 'rgba(128,128,128,0.1)'},
+                  grid: { color: 'rgba(128,128,128,0.1)' },
                   ticks: {
-                    font: {size: 12}, color: '#888',
+                    font: { size: 12 }, color: '#888',
                     callback: v => v + '%', stepSize: 20
                   }
                 }
@@ -368,7 +370,7 @@
       </section>
 
 
-<section data-markdown>
+      <section data-markdown>
         <textarea data-template>
         ## 2. Les composants
         **Qui dit composant fonctionnel dit ...**
@@ -378,27 +380,34 @@
     </textarea>
       </section>
 
-      
+
 
       <section>
         <h2>2. Les composants</h2>
-        <p><strong>La structure</strong> — Un composant React est une fonction JavaScript dont le nom commence par une
-          majuscule.</p>
+        <p><strong>La structure</strong> — Trois parties importantes : assignements, méthodes, rendu JSX</p>
 
         <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
           <!-- CODE À GAUCHE -->
           <div style="flex: 2; overflow: auto;">
             <pre style="width: 100%; font-size: 1rem; height: 100%;"><code class="language-jsx" >
-import { useState } from 'react';
 
-function Spiderman({nom, identité, ennemi}) {
-  const [vaincu, setVaincu] = useState(0);
+function Spiderman() {
 
+  /*1 - Assignements
+  --------------------------------*/
+  const nom = "Spiderman";
+  const identité = "Peter Parker";
+  const ennemi = "Venom";
+  let vaincu = 0;
+
+ /*2 - Méthodes
+  --------------------------------*/
   const handleCombattre = () => {
-    const newVaincu = vaincu + 1;
-    setVaincu(newVaincu);
+    vaincu = vaincu + 1;
   };
 
+  /*3 - Rendu JSX
+  --------------------------------*/
   return (
     &lt;div&gt;
       &lt;h3&gt;🕷️ {nom}&lt;/h3&gt;
@@ -425,7 +434,6 @@ function Spiderman({nom, identité, ennemi}) {
 
       <section>
         <h2>2. Les composants</h2>
-        <!-- <p><strong>La structure</strong> — Un composant React est une fonction JavaScript dont le nom commence par une majuscule.</p> -->
         <p><strong>useState</strong> — Le hook `useState(valeurInitiale)` retourne un tableau de deux éléments : la
           valeur actuelle et son setter. À chaque appel du setter, React re-rend automatiquement le composant avec la
           nouvelle valeur.
@@ -433,17 +441,24 @@ function Spiderman({nom, identité, ennemi}) {
           <!-- CODE À GAUCHE -->
           <div style="flex: 2; overflow: auto;">
             <pre style="width: 100%; font-size: 2rem; height: 100%;">
-              <code class="language-jsx" data-line-numbers="4|11">
+              <code class="language-jsx" data-line-numbers="4|18|9-11">
 import { useState } from 'react';
-function Spiderman({nom, identité, ennemi}) {
+function Spiderman() {
   const [vaincu, setVaincu] = useState(0);
+  const nom = "Spiderman";
+  const identité = "Peter Parker";
+  const ennemi = "Venom";
+
+  const handleCombattre = () => {
+    setVaincu(vaincu + 1);
+  };
   return (
     &lt;div&gt;
       &lt;h3&gt;🕷️ {nom}&lt;/h3&gt;
       &lt;p&gt;Identité : {identité}&lt;/p&gt;
       &lt;p&gt;Affronte : 🦹 {ennemi}&lt;/p&gt;
       &lt;p&gt;Vaincus : {vaincu}&lt;/p&gt;
-      &lt;button onClick={() => setVaincu(vaincu + 1)}&gt;
+      &lt;button onClick={handleCombattre}&gt;
         Combattre! 💥
       &lt;/button&gt;
     &lt;/div&gt;
@@ -460,8 +475,25 @@ function Spiderman({nom, identité, ennemi}) {
           </div>
         </div>
       </section>
-
       <section>
+        <h2>2. Les composants</h2>
+        <p><strong>useState</strong>, un déclencheur de changements grâce aux événements</p>
+        <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
+          <!-- CODE À GAUCHE -->
+          <div style="flex: 1; overflow: auto;">
+
+            <img src="/src/assets/images/giphy1.gif" alt="">
+          </div>
+
+          <!-- DÉMO À DROITE -->
+          <div style="flex: 2;">
+
+            <img src="/src/assets/images/state_changes_diagram.svg" alt="">
+          </div>
+        </div>
+      </section>
+
+      <!-- <section>
         <h2>2. Les composants</h2>
         <blockquote style="border-left: 4px solid #4f8ef7; padding-left: 2rem; color: #4f8ef7;">
 
@@ -470,7 +502,8 @@ function Spiderman({nom, identité, ennemi}) {
             setter (<code>setCompteur(1)</code>), sinon React ne détecte pas le changement et n'actualise pas
             l'interface.</p>
         </blockquote>
-      </section>
+      </section> -->
+
 
       <section>
         <h2>2. Les composants</h2>
@@ -479,8 +512,6 @@ function Spiderman({nom, identité, ennemi}) {
           expression JS directement dans le rendu. Les événements s'écrivent en camelCase (<code>onClick</code>,
           <code>onChange</code>…).
         </p>
-
-
 
         <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
           <!-- CODE À GAUCHE -->
@@ -513,6 +544,8 @@ function Spiderman({nom, identité, ennemi}) {
           </div>
         </div>
       </section>
+
+
       <section>
         <section data-markdown="/src/assets/md/INTRODUCTION_JSX.md">
         </section>
@@ -521,9 +554,115 @@ function Spiderman({nom, identité, ennemi}) {
       </section>
 
       <section>
-        <iframe src="/src/assets/html/demo-spiderman-props.html" width="100%" height="800" frameborder="0">
-        </iframe>
+        <h2>2. Les composants</h2>
+        <h3>Les props ou la personnalisation des composants</h4>
+          <p>
+          </p>
+
+          <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
+            <!-- CODE À GAUCHE -->
+            <div style="flex: 2; overflow: auto;">
+              <pre style="width: 100%; font-size: 2rem; height: 100%;">
+  <code class="language-jsx" data-line-numbers="1-10">import { Spiderman } from './components/spiderman.jsx';
+// Composant parent
+function App() {
+  return (
+    &lt;&gt;
+      &lt;Spiderman  /&gt;
+      &lt;Spiderman /&gt;
+      &lt;Spiderman /&gt;
+    &lt;/&gt;
+  );
+}
+  </code>
+</pre>
+            </div>
+
+            <!-- DÉMO À DROITE -->
+            <div style="flex: 1;">
+              <iframe src="/src/assets/html/demo-spiderman-2.html" width="100%" height="100%" frameborder="0"
+                style="border-radius: 8px;">
+              </iframe>
+            </div>
+          </div>
       </section>
+
+      <section>
+        <h2>2. Les composants</h2>
+        <h3>Les props ou la personnalisation des composants</h4>
+          <p>
+          </p>
+
+          <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
+            <!-- CODE À GAUCHE -->
+            <div style="flex: 2; overflow: auto;">
+              <pre style="width: 100%; font-size: 2rem; height: 100%;">
+  <code class="language-jsx" data-line-numbers="1-10">import { Spiderman } from './components/spiderman.jsx';
+// Composant parent
+function App() {
+  return (
+    &lt;&gt;
+      &lt;Spiderman nom="Spider-Man" identite="Peter"ennemi="Venom" /&gt;
+      &lt;Spiderman nom="Spider-Gwen" identite="Gwen ennemi="Goblin"/&gt;
+      &lt;Spiderman nom="Miles" identite="Miles Morales" ennemi="Symbiote"/&gt;
+    &lt;/&gt;
+  );
+}
+  </code>
+</pre>
+            </div>
+
+            <!-- DÉMO À DROITE -->
+            <div style="flex: 1;">
+              <iframe src="/src/assets/html/demo-spiderman-3.html" width="100%" height="100%" frameborder="0"
+                style="border-radius: 8px;">
+              </iframe>
+            </div>
+          </div>
+      </section>
+
+
+      <section>
+        <h2>2. Les composants</h2>
+        <h3>Les props ou la personnalisation des composants</h4>
+          <p>
+          </p>
+
+          <div style="display: flex; gap: 2rem; align-items: stretch; height: 500px;">
+            <!-- CODE À GAUCHE -->
+            <div style="flex: 2; overflow: auto;">
+              <pre style="width: 100%; font-size: 2rem; height: 100%;">
+  <code class="language-jsx" data-line-numbers="1-10">
+function Spiderman({ nom, identite, ennemi }) {
+    const [vaincu, setVaincu] = useState(0);
+    const handleCombattre = () => {
+    vaincu = vaincu + 1;
+  };
+ return (
+    &lt;div&gt;
+      &lt;h3&gt;🕷️ {nom}&lt;/h3&gt;
+      &lt;p&gt;Identité : {identité}&lt;/p&gt;
+      &lt;p&gt;Affronte : 🦹 {ennemi}&lt;/p&gt;
+      &lt;p&gt;Vaincus : {vaincu}&lt;/p&gt;
+      &lt;button onClick={handleCombattre}&gt;
+        Combattre! 💥
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+  </code>
+</pre>
+            </div>
+
+            <!-- DÉMO À DROITE -->
+            <div style="flex: 1;">
+              <iframe src="/src/assets/html/demo-spiderman-3.html" width="100%" height="100%" frameborder="0"
+                style="border-radius: 8px;">
+              </iframe>
+            </div>
+          </div>
+      </section>
+
 
 
       <!-- <section data-transition="slide-in fade-out" data-background-image="/src/assets/images/react_compo_PascalCase.svg"
@@ -569,19 +708,43 @@ function Spiderman({nom, identité, ennemi}) {
 
       <section data-markdown="/src/assets/md/partie_5-slide.md">
       </section>
-      
-        <!-- LIFE CYCLE USE EFFECT -->
+      <section>
+        <h2>5. Le cycle de vie d'un composant React</h2>
+                <iframe src="/src/assets/html/demo-spiderman-useeffect2.html" width="100%" height="700" frameborder="0"></iframe>
+
+      </section> 
+
+      <section>
+        <h2>5. Le cycle de vie d'un composant React</h2>
+        <p>Structure de useEffect</p>        <pre style="width: 100%; font-size: 2rem; height: 100%;">
+  <code class="language-jsx" data-line-numbers="1-16">useEffect(() => {
+  // 1. Ma tâche à exécuter (ex: fetch('api/mes-datas'))
+  console.log("Je fais ma tâche !");
+  // 2. Optionnel : Le nettoyage (pour setInterval, websocket, etc.)
+  return () => { console.log("Je range derrière moi"); };
+}, [
+// 3. Le tableau de dépendances
+]);
+  // - []          → exécuté 1 seule fois (au montage)
+  // - [maValeur]  → exécuté quand maValeur change
+  </code>
+</pre>
+      </section>
+     
+
+
+      <!-- LIFE CYCLE USE EFFECT -->
       <section style="font-size: 0.5em; width: 80%; text-align: left; margin: 0 auto;">
         <h1>5. Le cycle de vie d'un composant React</h1>
-        <div style="margin-bottom: 2rem;">
+        <div class="fragment" style="margin-bottom: 2rem;">
           <h4>PHASE 1: MOUNTING</h4>
           <ul>
             <li>lecture 1 : <code>render()</code> <span style="color: #1D9E75;">✓</span></li>
-            <li>lecture 2 : <code>componentDidMount()</code> / <code>useEffect()</code> <span
+            <li>lecture 2 : <code>useEffect()</code> <span
                 style="color: #1D9E75;font-size:2.2rem">✓</span></li>
           </ul>
         </div>
-        <div style="margin-bottom: 2rem;">
+        <div class="fragment" style="margin-bottom: 2rem;">
           <h4 style="display: flex; align-items: center; gap: 1rem;">
             PHASE 2: UPDATING
             <span
@@ -590,20 +753,25 @@ function Spiderman({nom, identité, ennemi}) {
           <ul>
             <li>lecture 1 : <code>render()</code> (re-render) <span style="color: #1D9E75; font-size:2.2rem">✓</span>
             </li>
-            <li>lecture 2 : <code>componentDidUpdate()</code> / <code>useEffect()</code> <span
+            <li>lecture 2 : <code>useEffect()</code> si le tableau de dépendance contient le state qui a changé<span
                 style="color: #1D9E75; font-size:2.2rem">✓</span></li>
           </ul>
         </div>
-        <div>
+        <div class="fragment">
           <h4>PHASE 3: UNMOUNTING</h4>
           <ul>
             <li>lecture 1 : <span style="color: #FF0000;">✖</span></li>
-            <li>lecture 2 : <code>componentWillUnmount()</code> / <code>useEffect()</code> <span
+            <li>lecture 2 : <code>useEffect()</code> avec le return pour le cleanup <span
                 style="color: #1D9E75; font-size:2.2rem">✓</span></li>
           </ul>
         </div>
       </section>
-      <section>
+
+       <section>
+        <iframe src="/src/assets/html/demo-spiderman-useeffect.html" width="100%" height="700" frameborder="0"></iframe>
+      </section>
+      
+      <!-- <section>
         <h2>useEffect — fetch d'une API</h2>
 
         <div style="display: flex; gap: 2rem; align-items: flex-start;">
@@ -654,14 +822,25 @@ function Utilisateurs() {
           </div>
 
         </div>
-      </section>
+      </section> -->
 
       <section>
-        <h1>Fin</h1>
+        <h2>Pour aller plus loin</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+          <img src="/src/assets/images/tailwind.png" alt="Tailwind 1" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <img src="/src/assets/images/niji-u.png" alt="Tailwind 2" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <img src="/src/assets/images/videv.png" alt="Tailwind 3" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <img src="/src/assets/images/maxresdefault.jpg" alt="Tailwind 4" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        
+        </div>
+        <!-- <ul>
+          <li>Tutoriel Tic Tac Toe</li>
+        </ul> -->
       </section>
-    
 
-      
+
+
 
 
 
